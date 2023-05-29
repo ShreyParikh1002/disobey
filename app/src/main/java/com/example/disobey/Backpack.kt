@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,7 +21,7 @@ class Backpack : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -37,6 +38,31 @@ class Backpack : Fragment() {
         return inflater.inflate(R.layout.fragment_bagpack, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val docRef = db.collection("userData").document("userid1").collection("backpack").document("count")
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                val documentData = documentSnapshot.data
+                // Parse the document into a map
+                val sneakerCounts = documentData ?: mapOf()
+
+                // Access the count of a specific sneaker
+                val countSneakerB = sneakerCounts["B"] ?: 0
+                val countSneakerA = sneakerCounts["A"] ?: 0
+                println("Count of a: $countSneakerA")
+                println("Count of b: $countSneakerB")
+            } else {
+                println("Document not found.")
+            }
+        }.addOnFailureListener { exception ->
+            println("Error getting document: $exception")
+        }
+
+
+
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -102,6 +102,9 @@ class LeaderboardFragment : Fragment() {
         fsrecyclerview.adapter=fsadapter
         Log.i("TAGG",""+leaderBoardsList)
         println(leaderBoardsList)
+
+
+
         return LeaderboardView;
     }
 

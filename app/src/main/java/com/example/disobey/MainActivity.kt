@@ -158,20 +158,20 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         )
         chipNavigationBarMain.setOnItemSelectedListener { id ->
             when (id) {
-                R.id.bottom_nav_dashboard -> {
-                    // Handle navigation to Activity1
-                    Handler().postDelayed({
-                        val intent = Intent(this@MainActivity, Dashboard::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0,0)
-                    },300)
-                    true
-                }
-                R.id.bottom_nav_leaderboards -> {
-                    val intent = Intent(this@MainActivity, Leaderboard::class.java)
-                    startActivity(intent)
-                    true
-                }
+//                R.id.bottom_nav_dashboard -> {
+//                    // Handle navigation to Activity1
+//                    Handler().postDelayed({
+//                        val intent = Intent(this@MainActivity, Dashboard::class.java)
+//                        startActivity(intent)
+//                        overridePendingTransition(0,0)
+//                    },300)
+//                    true
+//                }
+//                R.id.bottom_nav_leaderboards -> {
+//                    val intent = Intent(this@MainActivity, Leaderboard::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
                 R.id.bottom_nav_cam -> {
                     val intent = Intent(this@MainActivity, snapCam::class.java)
                     intent.putExtra("Type","1")
@@ -244,14 +244,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             startActivity(intent)
         }
 
-        avatarButton.setOnClickListener {
-            Handler().postDelayed({
-                val DashboardIntent = Intent(this, Dashboard::class.java)
-                startActivity(DashboardIntent)
-                overridePendingTransition(0,0)
-            },1000)
-
-        }
+//        avatarButton.setOnClickListener {
+//            Handler().postDelayed({
+//                val DashboardIntent = Intent(this, Dashboard::class.java)
+//                startActivity(DashboardIntent)
+//                overridePendingTransition(0,0)
+//            },1000)
+//
+//        }
 //    recenterButton.setOnClickListener {
 //        mapView.getMapboxMap().flyTo(
 //            CameraOptions.Builder()

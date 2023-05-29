@@ -42,10 +42,12 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
+import com.mapbox.maps.extension.style.expressions.dsl.generated.image
 import com.mapbox.maps.extension.style.expressions.generated.Expression.Companion.interpolate
 import com.mapbox.maps.extension.style.expressions.generated.Expression.Companion.linear
 import com.mapbox.maps.extension.style.style
 import com.mapbox.maps.plugin.LocationPuck2D
+import com.mapbox.maps.plugin.PuckBearingSource
 import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.AnnotationConfig
 import com.mapbox.maps.plugin.annotation.AnnotationPlugin
@@ -60,6 +62,7 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.locationcomponent.location2
 import org.json.JSONObject
 import java.time.LocalDate
 import kotlin.math.abs
@@ -267,12 +270,21 @@ class MainFragment : Fragment(), SensorEventListener {
     }
 
     private fun initLocationComponent() {
-        val locationComponentPlugin = mapView.location
-        locationComponentPlugin.updateSettings {
+        val locationComponentPlugin = mapView.location2
+        locationComponentPlugin.apply {
             this.enabled = true
-//            ToDO: custom avatar puck in future (DO NOT DELETE)
+//            this.puckBearingSource=PuckBearingSource.HEADING
+            this.pulsingEnabled=true
+            this.pulsingMaxRadius= 100.0F
+//            this.pulsingColor=R.color.black
             this.locationPuck = LocationPuck2D(
-                bearingImage = context?.let {
+//                bearingImage = context?.let {
+//                    AppCompatResources.getDrawable(
+//                        it,
+//                        R.drawable.iconsneakers,
+//                    )
+//                },
+                topImage = context?.let {
                     AppCompatResources.getDrawable(
                         it,
                         R.drawable.avatar2d,
@@ -291,6 +303,7 @@ class MainFragment : Fragment(), SensorEventListener {
                     }
                 }.toJson()
             )
+
         }
         locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
@@ -337,6 +350,11 @@ class MainFragment : Fragment(), SensorEventListener {
         mapView.location
             .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
         mapView.gestures.removeOnMoveListener(onMoveListener)
+        val locationComponentPlugin = mapView.location2
+        locationComponentPlugin.updateSettings2 {
+            this.puckBearingEnabled = false
+            this.puckBearingSource=PuckBearingSource.HEADING
+        }
     }
 
     private fun createLatLongForMarker(){
