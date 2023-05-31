@@ -31,6 +31,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.disobey.R
+import com.example.disobey.SneakerData
+import com.example.disobey.SneakerDataStruc
 import com.example.disobey.snapCam
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
@@ -137,6 +139,7 @@ class MainFragment : Fragment(), SensorEventListener {
     var currentLongitude=0.0
     var countnum=0
 
+    lateinit var sneakerList :ArrayList<SneakerDataStruc>
     var one=R.drawable.loneshark
     var two=R.drawable.darksmoke
     override fun onCreateView(
@@ -257,6 +260,7 @@ class MainFragment : Fragment(), SensorEventListener {
             if(currentZoom<10 && annotationAdded){
 //                Toast.makeText(this, "$currentZoom", Toast.LENGTH_SHORT).show()
                 pointAnnotationManager?.deleteAll()
+                pointAnnotationManager?.deleteAll()
                 annotationAdded=false
             }
             else if(currentZoom>=10 && markerList.isNotEmpty() && !annotationAdded){
@@ -287,7 +291,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 topImage = context?.let {
                     AppCompatResources.getDrawable(
                         it,
-                        R.drawable.avatar2d,
+                        R.drawable.disobeyavatar2d,
                     )
                 },
                 scaleExpression = interpolate {
@@ -295,11 +299,11 @@ class MainFragment : Fragment(), SensorEventListener {
                     zoom()
                     stop {
                         literal(0.0)
-                        literal(0.2)
+                        literal(0.0)
                     }
                     stop {
                         literal(20.0)
-                        literal(0.5)
+                        literal(0.2)
                     }
                 }.toJson()
             )
@@ -351,9 +355,11 @@ class MainFragment : Fragment(), SensorEventListener {
             .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
         mapView.gestures.removeOnMoveListener(onMoveListener)
         val locationComponentPlugin = mapView.location2
-        locationComponentPlugin.updateSettings2 {
+        locationComponentPlugin.apply {
             this.puckBearingEnabled = false
-            this.puckBearingSource=PuckBearingSource.HEADING
+//            this.puckBearingSource=PuckBearingSource.HEADING
+            this.pulsingEnabled=false
+//            this.puckBearingSource=PuckBearingSource.HEADING
         }
     }
 
@@ -446,22 +452,25 @@ class MainFragment : Fragment(), SensorEventListener {
             else if(i==49){
                 stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
             }
-//            var mObe = JSONObject();
-//            mObe.put("somekey",i);
+            var keyJsonObject = JSONObject();
+            keyJsonObject.put("key",i);
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
                 .withPoint(Point.fromLngLat(coordinateList.get(i).longitude,coordinateList.get(i).latitude))
-//                .withData(Gson().fromJson(mObe.toString(), JsonElement::class.java))
+                .withData(Gson().fromJson(keyJsonObject.toString(), JsonElement::class.java))
                 .withIconImage(stashIcon!!)
                 .withIconSize(0.8)
             markerList.add(pointAnnotationOptions);
         }
+        val msneaker=SneakerData()
+        sneakerList=msneaker.populateMarkers()
 
 //        TODO: golden box part
 //        bitmpa = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker))
 //        for (i in 21 until 23){
 //
 //            var mObe = JSONObject();
-//            mObe.put("somekey",i);
+
+//            mObe.put("key",i);
 //            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 //                .withPoint(Point.fromLngLat(longitudeList.get(i),latitudeList.get(i)))
 //                .withData(Gson().fromJson(mObe.toString(), JsonElement::class.java))
@@ -487,7 +496,7 @@ class MainFragment : Fragment(), SensorEventListener {
 
     private fun onMarkerItemClick(marker: PointAnnotation) {
         countnum++;
-        var number= Integer.parseInt(marker.getData()?.asJsonObject?.get("somekey").toString())
+        var number= Integer.parseInt(marker.getData()?.asJsonObject?.get("key").toString())
 //        AlertDialog.Builder(this)
 //            .setTitle("Marker Click")
 //            .setMessage("Here is the value-- "+number)
@@ -514,6 +523,7 @@ class MainFragment : Fragment(), SensorEventListener {
         }
         else {
             timeoutSet.add(number)
+//            TODO:legacy code for golden stashes
             if (number > 20) {
 //            Toast.makeText(this,"yeah",Toast.LENGTH_SHORT).show()
                 dialog.findViewById<TextView>(R.id.t1).text = "You've found out our 3D try-ons"
