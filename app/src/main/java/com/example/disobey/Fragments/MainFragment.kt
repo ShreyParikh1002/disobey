@@ -1,6 +1,7 @@
 package com.example.disobey.Fragments
 
 import android.animation.Animator
+import kotlinx.coroutines.*
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -462,7 +463,14 @@ class MainFragment : Fragment(), SensorEventListener {
             markerList.add(pointAnnotationOptions);
         }
         val msneaker=SneakerData()
-        sneakerList=msneaker.populateMarkers()
+//        sneakerList=msneaker.firestoreRetrieve()
+        GlobalScope.launch(Dispatchers.Main) {
+            val sneakerListDeferred = msneaker.firestoreRetrieve()
+            sneakerList = sneakerListDeferred.await()
+            for (item in sneakerList) {
+                println(item)
+            }
+        }
 
 //        TODO: golden box part
 //        bitmpa = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker))
