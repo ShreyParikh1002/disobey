@@ -29,15 +29,14 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             app:lottie_rawRes="@raw/animation1"
+            android:visibility="gone"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"/>
             <ImageView
                 android:id="@+id/reward"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:layout_gravity="center"
-                android:src="@drawable/demo_sneaker"
-                android:visibility="gone"/>
+                android:layout_gravity="center"/>
         </FrameLayout>
 
         <TextView

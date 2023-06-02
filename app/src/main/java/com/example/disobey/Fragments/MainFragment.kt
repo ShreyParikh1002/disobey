@@ -31,11 +31,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat.getSystemService
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
+import com.bumptech.glide.Glide
 import com.example.disobey.R
 import com.example.disobey.SneakerData
 import com.example.disobey.SneakerDataStruc
 import com.example.disobey.snapCam
 import com.google.common.reflect.TypeToken
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonSyntaxException
@@ -66,6 +69,7 @@ import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListene
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.locationcomponent.location2
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.time.LocalDate
 import kotlin.math.abs
@@ -429,7 +433,7 @@ class MainFragment : Fragment(), SensorEventListener {
 
 //            distance check
 //            Toast.makeText(this,"dist "+(abs(pointerLatitude-currentLatitude)*100000)%1000+"\n"+(abs(currentLongitude-pointerLongitude)*100000)%1000,  Toast.LENGTH_SHORT).show()
-            if(abs(pointerLatitude-currentLatitude) <=0.0005 && abs(currentLongitude-pointerLongitude) <=0.0005){
+            if(abs(pointerLatitude-currentLatitude) <=10.0005 && abs(currentLongitude-pointerLongitude) <=10.0005){
                 onMarkerItemClick(annotation)
             }
             else{
@@ -467,9 +471,9 @@ class MainFragment : Fragment(), SensorEventListener {
         GlobalScope.launch(Dispatchers.Main) {
             val sneakerListDeferred = msneaker.firestoreRetrieve()
             sneakerList = sneakerListDeferred.await()
-            for (item in sneakerList) {
-                println(item)
-            }
+//            for (item in sneakerList) {
+//                println(item)
+//            }
         }
 
 //        TODO: golden box part
@@ -528,60 +532,66 @@ class MainFragment : Fragment(), SensorEventListener {
             dialog.findViewById<TextView>(R.id.t1).text = "You've already used up this stash"
             dialog.findViewById<TextView>(R.id.t2).visibility=View.GONE
             animationWindow.visibility=View.GONE
+
         }
         else {
             timeoutSet.add(number)
+            val picasso = Picasso.get()
+            picasso.load(sneakerList[number].image)
+                .into(imageWindow)
+            dialog.findViewById<TextView>(R.id.t1).text = sneakerList[number].name
+
 //            TODO:legacy code for golden stashes
-            if (number > 20) {
-//            Toast.makeText(this,"yeah",Toast.LENGTH_SHORT).show()
-                dialog.findViewById<TextView>(R.id.t1).text = "You've found out our 3D try-ons"
-                dialog.findViewById<TextView>(R.id.t2).text = "Search around and try em on"
-                animationWindow.setRepeatCount(LottieDrawable.INFINITE)
-                dialog.findViewById<Button>(R.id.find).visibility = View.VISIBLE
-                dialog.findViewById<Button>(R.id.find).setOnClickListener {
-                    val intent = Intent(context, snapCam::class.java)
-                    intent.putExtra("Type", "2")
-                    startActivity(intent)
-                }
-//            dialog.findViewById<TextView>(R.id.t2).text="Search around and try em on"
-            } else {
-                animationWindow.addAnimatorListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator) {
-                    }
-
-                    override fun onAnimationEnd(animation: Animator) {
-                        //Your code for remove the fragment
-//                try {
-
-                        imageWindow.visibility = View.VISIBLE
-                        val selectShoe = (0..100).random()
-//                    one legendary
-                        if (selectShoe >= 10 && selectShoe <= 15) {
-                            imageWindow.setImageResource(one)
-                            dialog.findViewById<TextView>(R.id.t2).text =
-                                "Finally a Legendary sneaker!!\n those are only 5 in a 100"
-                        } else if (selectShoe >= 20 && selectShoe <= 30) {
-                            imageWindow.setImageResource(two)
-                            dialog.findViewById<TextView>(R.id.t2).text =
-                                "Wohoo!! a rare collectible\n Let's cop a Legendary next"
-                        } else {
-                            dialog.findViewById<TextView>(R.id.t2).text =
-                                "You got a common sneaker, keep playing for rare ones"
-                        }
-//                } catch (ex: Exception) {
-//                    ex.toString()
+//            if (number > 20) {
+////            Toast.makeText(this,"yeah",Toast.LENGTH_SHORT).show()
+//                dialog.findViewById<TextView>(R.id.t1).text = "You've found out our 3D try-ons"
+//                dialog.findViewById<TextView>(R.id.t2).text = "Search around and try em on"
+//                animationWindow.setRepeatCount(LottieDrawable.INFINITE)
+//                dialog.findViewById<Button>(R.id.find).visibility = View.VISIBLE
+//                dialog.findViewById<Button>(R.id.find).setOnClickListener {
+//                    val intent = Intent(context, snapCam::class.java)
+//                    intent.putExtra("Type", "2")
+//                    startActivity(intent)
 //                }
-//                println("yeahs")
-//                Toast.makeText(this@MainActivity,"yeah", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onAnimationCancel(animation: Animator) {
-                    }
-
-                    override fun onAnimationRepeat(animation: Animator) {
-                    }
-                })
-            }
+////            dialog.findViewById<TextView>(R.id.t2).text="Search around and try em on"
+//            } else {
+//                animationWindow.addAnimatorListener(object : Animator.AnimatorListener {
+//                    override fun onAnimationStart(animation: Animator) {
+//
+//                    }
+//
+//                    override fun onAnimationEnd(animation: Animator) {
+//                        //Your code for remove the fragment
+////                try {
+//                        imageWindow.visibility = View.VISIBLE
+////                        val storage = Firebase.storage
+////                        val storageRef = storage.reference
+//
+//
+////                        val selectShoe = (0..100).random()
+//////                    one legendary
+////                        if (selectShoe >= 10 && selectShoe <= 15) {
+////                            imageWindow.setImageResource(one)
+////                            dialog.findViewById<TextView>(R.id.t2).text =
+////                                "Finally a Legendary sneaker!!\n those are only 5 in a 100"
+////                        } else if (selectShoe >= 20 && selectShoe <= 30) {
+////                            imageWindow.setImageResource(two)
+////                            dialog.findViewById<TextView>(R.id.t2).text =
+////                                "Wohoo!! a rare collectible\n Let's cop a Legendary next"
+////                        } else {
+////                            dialog.findViewById<TextView>(R.id.t2).text =
+////                                "You got a common sneaker, keep playing for rare ones"
+////                        }
+//
+//                    }
+//
+//                    override fun onAnimationCancel(animation: Animator) {
+//                    }
+//
+//                    override fun onAnimationRepeat(animation: Animator) {
+//                    }
+//                })
+//            }
         }
         dialog.show()
     }
