@@ -37,6 +37,9 @@ import com.example.disobey.SneakerData
 import com.example.disobey.SneakerDataStruc
 import com.example.disobey.snapCam
 import com.google.common.reflect.TypeToken
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
@@ -143,6 +146,8 @@ class MainFragment : Fragment(), SensorEventListener {
     var currentLatitude=0.0
     var currentLongitude=0.0
     var countnum=0
+
+    val db = FirebaseFirestore.getInstance()
 
     lateinit var sneakerList :ArrayList<SneakerDataStruc>
     var one=R.drawable.loneshark
@@ -479,9 +484,7 @@ class MainFragment : Fragment(), SensorEventListener {
 //        TODO: golden box part
 //        bitmpa = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker))
 //        for (i in 21 until 23){
-//
 //            var mObe = JSONObject();
-
 //            mObe.put("key",i);
 //            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 //                .withPoint(Point.fromLngLat(longitudeList.get(i),latitudeList.get(i)))
@@ -540,7 +543,30 @@ class MainFragment : Fragment(), SensorEventListener {
             picasso.load(sneakerList[number].image)
                 .into(imageWindow)
             dialog.findViewById<TextView>(R.id.t1).text = sneakerList[number].name
-
+            val user = FirebaseAuth.getInstance().currentUser
+            println(user!!.uid)
+            val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
+            docRef.get().addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    println("document exist")
+                    val documentData = documentSnapshot.data
+                    // Parse the document into a map
+                    val sneakerCounts = documentData ?: mapOf()
+                    if(sneakerCounts[sneakerList[number].name]==0){
+                        docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
+                    }
+                    // Access the count of a specific sneaker
+                    val countSneakerB = sneakerCounts["B"] ?: 0
+                    val countSneakerA = sneakerCounts["A"] ?: 0
+                    println("Count of a: $countSneakerA")
+                    println("Count of b: $countSneakerB")
+                } else {
+                    println("document doesn't exist")
+                    docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
+                }
+            }.addOnFailureListener { exception ->
+                println("Error getting document: $exception")
+            }
 //            TODO:legacy code for golden stashes
 //            if (number > 20) {
 ////            Toast.makeText(this,"yeah",Toast.LENGTH_SHORT).show()

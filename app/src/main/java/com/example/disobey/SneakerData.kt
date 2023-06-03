@@ -54,9 +54,6 @@ class SneakerData {
         }
         return list
     }
-    fun returnfun(): ArrayList<SneakerDataStruc>{
-        return sneakerList
-    }
 //    fun populateMarkers(){
 //        firestoreRetrieve()
 ////        not working as retrieval in firestore is asynchronous hencce blank lists are being passed even when kotlin is sycnhronous
