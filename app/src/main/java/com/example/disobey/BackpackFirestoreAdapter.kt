@@ -19,13 +19,17 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
     }
 
     override fun onBindViewHolder(holder: BackpackFirestoreAdapter.ViewHolder, position: Int) {
-        holder.name.text=fslist[position].name
+        val str=fslist[position].name
+        val nameList=str.split(" ")
+        holder.name1.text=nameList[0]
+        if(nameList.size>1){
+            holder.name2.text=nameList[1]
+        }
         holder.type.text=fslist[position].type
         val picasso = Picasso.get()
         picasso.load(fslist[position].image)
             .into(holder.image)
-        holder.coin.text=fslist[position].coin.toString()
-
+        holder.coin.text="x "+fslist[position].coin.toString()
     }
 
     override fun getItemCount(): Int {
@@ -33,7 +37,8 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
     }
 
     public class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val name: TextView = itemView.findViewById(R.id.sneakerName)
+        val name1: TextView = itemView.findViewById(R.id.sneakerName1)
+        val name2: TextView = itemView.findViewById(R.id.sneakerName2)
         val type: TextView = itemView.findViewById(R.id.sneakerType)
         val image: ImageView= itemView.findViewById(R.id.sneakerImage)
         val coin: TextView = itemView.findViewById(R.id.coin)
