@@ -1,13 +1,17 @@
 package com.example.disobey.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import com.example.disobey.Avatar
 import com.example.disobey.Backpack
 import com.example.disobey.R
 import com.example.disobey.Stats
+import com.example.disobey.snapCam
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +39,7 @@ class DashboardFragment : Fragment() {
 
     lateinit var chipNavigationBar : ChipNavigationBar;
     lateinit var DashboardView: View
+    lateinit var avatarButton: ImageButton
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +52,11 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chipNavigationBar = view.findViewById(R.id.nav)
+        avatarButton=view.findViewById(R.id.avatar)
+        avatarButton.setOnClickListener{
+            val avatarIntent = Intent(context, Avatar::class.java)
+            startActivity(avatarIntent)
+        }
         chipNavigationBar.setItemSelected(
             R.id.bottom_nav_stats,
             true

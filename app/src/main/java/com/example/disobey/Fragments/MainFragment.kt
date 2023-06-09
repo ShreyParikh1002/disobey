@@ -73,6 +73,7 @@ import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListen
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.locationcomponent.location2
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import java.time.LocalDate
 import kotlin.math.abs
@@ -122,12 +123,13 @@ class MainFragment : Fragment(), SensorEventListener {
     lateinit var scan: Button
     lateinit var stepsTaken : TextView
     lateinit var coinsEarned : TextView
-
     lateinit var pref: SharedPreferences
+
     private var initialSteps = 0
     private var disobeySteps = 0
     private var dailySteps = 0
     private var coins = 0
+    private var unwrittenStashCount = 0
     val timeoutSet = mutableSetOf(24)
 
     var annotationApi : AnnotationPlugin? = null
@@ -150,6 +152,8 @@ class MainFragment : Fragment(), SensorEventListener {
     val db = FirebaseFirestore.getInstance()
 
     lateinit var sneakerList :ArrayList<SneakerDataStruc>
+    lateinit var backpackSneakerList :ArrayList<SneakerDataStruc>
+    var sneakerCountMap = hashMapOf<String, Int>()
     var one=R.drawable.loneshark
     var two=R.drawable.darksmoke
     override fun onCreateView(
@@ -158,12 +162,63 @@ class MainFragment : Fragment(), SensorEventListener {
     ): View? {
         // Inflate the layout for this fragment
         v=inflater.inflate(R.layout.fragment_main, container, false)
-
+        pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        backpackSneakerList = ArrayList()
         stepsTaken = v.findViewById(R.id.stepCount)
         coinsEarned = v.findViewById(R.id.coinCount)
 //        cameraButton=v.findViewById(R.id.cameraButton)
 //        avatarButton=v.findViewById(R.id.avatar)
 
+//--------------------------------------------------------------------------------------------------
+//      base infra initialization for stash click -> backpack updates
+        val user = FirebaseAuth.getInstance().currentUser
+        println(user)
+//        if(pref.contains("unwrittenStashCount")){
+//            unwrittenStashCount = pref.getInt("unwrittenStashCount",-1)
+            val sneakerMapJson = pref.getString("sneakerCountMap", null)
+            val backpackSneakerListJson = pref.getString("backpackSneakerList", null)
+            val gson = Gson()
+            if(sneakerMapJson!=null){
+                sneakerCountMap = gson.fromJson(sneakerMapJson, object : com.google.gson.reflect.TypeToken<HashMap<String, Int>>() {}.type)
+                println(sneakerCountMap)
+            }
+            else{
+                println("no sneaker map yet")
+            }
+            if(sneakerMapJson!=null){
+                backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
+                println(backpackSneakerList)
+            }
+            else{
+                println("no sneakers list yet")
+            }
+//        }
+//        else{
+//            var docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
+//            docRef.get().addOnSuccessListener { documentSnapshot ->
+//                if (documentSnapshot.exists()) {
+//                    println("document exist")
+//
+//                } else {
+//                    //yet to be written to firestore, wait for first marker click
+//                }
+//            }.addOnFailureListener { exception ->
+//                println("Error getting sneaker count document: $exception")
+//            }
+////            getting sneaker list
+//            docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
+//            docRef.get().addOnSuccessListener { documentSnapshot ->
+//                if (documentSnapshot.exists()) {
+//                    println("document exist")
+//                    backpackSneakerList.addAll(documentSnapshot.toObject(SneakerData::class.java)!!.sneakerData)
+//
+//                } else {
+//                    //yet to be written to firestore, wait for first marker click
+//                }
+//            }.addOnFailureListener { exception ->
+//                println("Error getting sneaker count document: $exception")
+//            }
+//        }
 //--------------------------------------------------------------------------------------------------
         mapView = v.findViewById(R.id.mapView)
         onMapReady()
@@ -186,6 +241,7 @@ class MainFragment : Fragment(), SensorEventListener {
 //
         }
 
+//--------------------------------------------------------------------------------------------------
         scan=v.findViewById(R.id.scan)
         scan.setOnClickListener {
             val currentDate = LocalDate.now().toString()
@@ -213,7 +269,7 @@ class MainFragment : Fragment(), SensorEventListener {
 //--------------------------------------------------------------------------------------------------
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager?
         stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+
         initialSteps= pref.getInt("initialSteps",-1)
         disobeySteps= pref.getInt("disobeySteps",0)
         dailySteps= pref.getInt("dailySteps",0)
@@ -539,34 +595,48 @@ class MainFragment : Fragment(), SensorEventListener {
         }
         else {
             timeoutSet.add(number)
+            val gson = Gson()
+            val user = FirebaseAuth.getInstance().currentUser
             val picasso = Picasso.get()
+            val markerSneaker=sneakerList[number].name
             picasso.load(sneakerList[number].image)
                 .into(imageWindow)
-            dialog.findViewById<TextView>(R.id.t1).text = sneakerList[number].name
-            val user = FirebaseAuth.getInstance().currentUser
-            println(user!!.uid)
-            val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
-            docRef.get().addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    println("document exist")
-                    val documentData = documentSnapshot.data
-                    // Parse the document into a map
-                    val sneakerCounts = documentData ?: mapOf()
-                    if(sneakerCounts[sneakerList[number].name]==0){
-                        docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
-                    }
-                    // Access the count of a specific sneaker
-                    val countSneakerB = sneakerCounts["B"] ?: 0
-                    val countSneakerA = sneakerCounts["A"] ?: 0
-                    println("Count of a: $countSneakerA")
-                    println("Count of b: $countSneakerB")
-                } else {
-                    println("document doesn't exist")
-                    docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
-                }
-            }.addOnFailureListener { exception ->
-                println("Error getting document: $exception")
+            dialog.findViewById<TextView>(R.id.t1).text = markerSneaker
+            sneakerCountMap[markerSneaker] = (sneakerCountMap[markerSneaker] as? Int ?: 0) + 1
+            if(sneakerCountMap[markerSneaker]==1){
+                backpackSneakerList.add(sneakerList[number])
+                val backpackSneakerListJson = gson.toJson(backpackSneakerList)
+                val editor = pref.edit()
+                editor.putString("backpackSneakerList", backpackSneakerListJson)
+                editor.apply()
+                println(backpackSneakerList)
             }
+            val sneakerMapJson = gson.toJson(sneakerCountMap)
+            val editor = pref.edit()
+            editor.putString("sneakerCountMap", sneakerMapJson)
+            editor.apply()
+            val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
+//            docRef.get().addOnSuccessListener { documentSnapshot ->
+//                if (documentSnapshot.exists()) {
+//                    println("document exist")
+//                    val documentData = documentSnapshot.data
+//                    // Parse the document into a map
+//                    val sneakerCounts = documentData ?: mapOf()
+//                    if(sneakerCounts[sneakerList[number].name]==0){
+//                        docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
+//                    }
+//                    // Access the count of a specific sneaker
+//                    val countSneakerB = sneakerCounts["B"] ?: 0
+//                    val countSneakerA = sneakerCounts["A"] ?: 0
+//                    println("Count of a: $countSneakerA")
+//                    println("Count of b: $countSneakerB")
+//                } else {
+//                    println("document doesn't exist")
+//                    docRef.set(hashMapOf(sneakerList[number].name to 1),SetOptions.merge())
+//                }
+//            }.addOnFailureListener { exception ->
+//                println("Error getting document: $exception")
+//            }
 //            TODO:legacy code for golden stashes
 //            if (number > 20) {
 ////            Toast.makeText(this,"yeah",Toast.LENGTH_SHORT).show()

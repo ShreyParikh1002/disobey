@@ -1,5 +1,7 @@
 package com.example.disobey
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,6 +34,9 @@ class Backpack : Fragment() {
     private var param2: String? = null
     val db = FirebaseFirestore.getInstance()
     lateinit var fsrecyclerview: RecyclerView
+    lateinit var pref: SharedPreferences
+    lateinit var backpackSneakerList :ArrayList<SneakerDataStruc>
+    var sneakerCountMap = hashMapOf<String, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +51,14 @@ class Backpack : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         return inflater.inflate(R.layout.fragment_bagpack, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val user = FirebaseAuth.getInstance().currentUser
+        backpackSneakerList=ArrayList()
 //        todo: initial map count trial code kept for reference
 //        val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
 //        docRef.get().addOnSuccessListener { documentSnapshot ->
@@ -69,17 +78,34 @@ class Backpack : Fragment() {
 //        }.addOnFailureListener { exception ->
 //            println("Error getting document: $exception")
 //        }
-
+        // Retrieve the JSON string from SharedPreferences
+        val sneakerMapJson = pref.getString("sneakerCountMap", null)
+        val backpackSneakerListJson = pref.getString("backpackSneakerList", null)
+        val gson = Gson()
+        if(sneakerMapJson!=null){
+            sneakerCountMap = gson.fromJson(sneakerMapJson, object : TypeToken<HashMap<String, Int>>() {}.type)
+            println(sneakerCountMap)
+        }
+        else{
+            println("no sneaker map yet")
+        }
+        if(sneakerMapJson!=null){
+            backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
+            println(backpackSneakerList)
+        }
+        else{
+            println("no sneakers list yet")
+        }
         fsrecyclerview=view.findViewById<RecyclerView>(R.id.backpackGrid)
         fsrecyclerview.layoutManager = GridLayoutManager(context,2)
-        var mySneakerList = ArrayList<SneakerDataStruc>()
-        val msneaker=SneakerData()
-        GlobalScope.launch(Dispatchers.Main) {
-            val sneakerListDeferred = msneaker.firestoreRetrieve()
-            mySneakerList = sneakerListDeferred.await()
-            var fsadapter= BackpackFirestoreAdapter(mySneakerList)
+//        var mySneakerList = ArrayList<SneakerDataStruc>()
+//        val msneaker=SneakerData()
+//        GlobalScope.launch(Dispatchers.Main) {
+//            val sneakerListDeferred = msneaker.firestoreRetrieve()
+//            mySneakerList = sneakerListDeferred.await()
+            var fsadapter= BackpackFirestoreAdapter(backpackSneakerList,sneakerCountMap,1)
             fsrecyclerview.adapter=fsadapter
-        }
+//        }
 //        mySneakerList.add(SneakerDataStruc("test","epic","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/clownKickers.png?alt=media&token=6fcf0956-f614-428b-8d9e-c69de11beafa",10))
 //        mySneakerList.add(SneakerDataStruc("test","epic","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/glitchStep.png?alt=media&token=d04dc918-1cf5-44b7-9273-c0f5b1ed2719",10))
 //        mySneakerList.add(SneakerDataStruc("test","epic","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/loneShark.png?alt=media&token=dbf4fa1b-11d7-486c-90bf-1307ecf09c9c",10))

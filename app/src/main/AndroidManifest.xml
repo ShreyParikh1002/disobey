@@ -25,18 +25,23 @@
         android:theme="@style/Theme.Disobey"
         tools:targetApi="31">
         <activity
+            android:name=".Avatar"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".Base"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".midnightService"
             android:enabled="true"
             android:exported="true" />
 
-
         <activity
             android:name=".login"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +50,8 @@
         </activity>
         <activity
             android:name=".snapCam"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -56,11 +62,12 @@
             android:value="${SNAP_APP_ID}" />
         <meta-data
             android:name="com.snap.camerakit.api.token"
-            android:value="${SNAP_API_KEY}"/>
+            android:value="${SNAP_API_KEY}" />
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

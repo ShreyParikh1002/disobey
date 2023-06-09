@@ -1,5 +1,8 @@
 package com.example.disobey
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 
-public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataStruc>):RecyclerView.Adapter<BackpackFirestoreAdapter.ViewHolder>() {
+public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataStruc>,private val fsmap: HashMap<String, Int>, private val fstype:Int):RecyclerView.Adapter<BackpackFirestoreAdapter.ViewHolder>() {
+    val sneakerCountMap = hashMapOf<String, Int>()
+    lateinit var pref: SharedPreferences
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -19,17 +26,28 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
     }
 
     override fun onBindViewHolder(holder: BackpackFirestoreAdapter.ViewHolder, position: Int) {
-        val str=fslist[position].name
-        val nameList=str.split(" ")
-        holder.name1.text=nameList[0]
-        if(nameList.size>1){
-            holder.name2.text=nameList[1]
+        if(fstype==1){
+            val str=fslist[position].name
+            val nameList=str.split(" ")
+            holder.name1.text=nameList[0]
+            if(nameList.size>1){
+                holder.name2.text=nameList[1]
+            }
+            holder.type.text=fslist[position].type
+            val picasso = Picasso.get()
+            picasso.load(fslist[position].image)
+                .into(holder.image)
+            holder.coin.text="x "+fsmap[fslist[position].name]
+            holder.coin.setOnClickListener{
+                val intent = Intent(holder.itemView.context, snapCam::class.java)
+                intent.putExtra("Type","1")
+                holder.itemView.context.startActivity(intent)
+            }
+
         }
-        holder.type.text=fslist[position].type
-        val picasso = Picasso.get()
-        picasso.load(fslist[position].image)
-            .into(holder.image)
-        holder.coin.text="x "+fslist[position].coin.toString()
+        if(fstype==2){
+
+        }
     }
 
     override fun getItemCount(): Int {
