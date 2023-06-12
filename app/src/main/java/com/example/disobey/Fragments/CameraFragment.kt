@@ -1,6 +1,8 @@
 package com.example.disobey.Fragments
 
 import android.content.ContentValues
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -16,7 +18,15 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.disobey.BackpackFirestoreAdapter
 import com.example.disobey.R
+import com.example.disobey.SneakerDataStruc
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.snap.camerakit.support.app.CameraActivity
 import java.io.File
 import java.io.FileOutputStream
@@ -33,169 +43,53 @@ private const val ARG_PARAM2 = "param2"
  */
 class CameraFragment : Fragment() {
 
-    lateinit var captureResultLabel : TextView
-    lateinit var imageView : ImageView
-    lateinit var videoView : VideoView
-    lateinit var bitmap: Bitmap
-    lateinit var uri: Uri
-    var typ =".jpg"
-//    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val db = FirebaseFirestore.getInstance()
+    lateinit var fsrecyclerview: RecyclerView
+    lateinit var pref: SharedPreferences
+    lateinit var threeDSneakerList :ArrayList<SneakerDataStruc>
+    var sneakerCountMap = hashMapOf<String, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         return inflater.inflate(R.layout.fragment_camera, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val type = Integer.parseInt(intent.getStringExtra("Type"))
-        val type=1;
-        var typeLensId="6e3bf43c-bda9-48e1-8be6-0dc2a936bc67"
-        captureResultLabel = view.findViewById<TextView>(R.id.label_capture_result)
-        imageView = view.findViewById<ImageView>(R.id.image_preview)
-        videoView = view.findViewById<VideoView>(R.id.video_preview).apply {
-            setOnPreparedListener { mediaPlayer ->
-                mediaPlayer.isLooping = true
-            }
-        }
-        if(type==1){
-            typeLensId="009495ba-d39f-4ae3-857d-8c1c7f0a4add"
-        }
-        captureLauncher.launch(
-            CameraActivity.Configuration.WithLens(
-                lensGroupId = "81f7449b-3a9d-415a-af34-bf2b3cd93a42",
-                lensId = typeLensId,
-                cameraFacingFront = false
-            )
-        )
-        view.findViewById<Button>(R.id.button_capture_lens).setOnClickListener {
-            captureLauncher.launch(
-                CameraActivity.Configuration.WithLens(
-                    lensGroupId = "81f7449b-3a9d-415a-af34-bf2b3cd93a42",
-                    lensId = typeLensId,
-                    cameraFacingFront = false
-                )
-            )
-        }
-        view.findViewById<Button>(R.id.download).setOnClickListener{
-//            if(::uri.isInitialized
-//            ){
-////                val inputStream = contentResolver.openInputStream(uri)
-////                val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//////                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-////                val fileName = "DisobeyImage_"+typ
-//////                println(mimeType+ fileName)
-////                val file = File(outputDir, fileName)
-////                val outputStream = FileOutputStream(file)
-////                val buffer = ByteArray(1024)
-////                var length = 0
-////                while ((inputStream!!.read(buffer).also { length = it }) > 0) {
-////                    outputStream.write(buffer, 0, length)
-////                }
-////                outputStream.flush()
-////                outputStream.close()
-////                inputStream.close()
-//                val inputStream = contentResolver.openInputStream(uri)
-//                val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//                val fileName = "meow.jpg"
-//                val file = File(outputDir, fileName)
-//                val outputStream = FileOutputStream(file)
-//                val buffer = ByteArray(1024)
-//                var length = 0
-//                while ((inputStream!!.read(buffer).also { length = it }) > 0) {
-//                    outputStream.write(buffer, 0, length)
+        val user = FirebaseAuth.getInstance().currentUser
+        threeDSneakerList=ArrayList()
+
+        fsrecyclerview=view.findViewById<RecyclerView>(R.id.ThreeDGrid)
+        fsrecyclerview.layoutManager = GridLayoutManager(context,2)
+
+        threeDSneakerList.add(SneakerDataStruc("Coloured Sneaker","182d9586-9a63-4ae4-8b73-ce8d10052422","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/coloredSneaker.png?alt=media&token=c88ca2f4-ba0f-4450-9096-ed2db6481f22",10))
+        threeDSneakerList.add(SneakerDataStruc("90's Nostalgia","d36f63db-23f1-457b-8059-3914de823243","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/90sNostalgia.png?alt=media&token=0e2dfaf3-2444-41de-98cd-48665aafc0aa",10))
+        threeDSneakerList.add(SneakerDataStruc("Black Gold","0295c23b-aad6-40c4-8b89-689e45a97e61","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/goldBlackSneaker.png?alt=media&token=767b9a25-72d8-4045-9586-242d63b3144c",10))
+        threeDSneakerList.add(SneakerDataStruc("Hyper Sneaker","32960919-ddaf-46ab-b4ba-724097569166","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/hyperSneaker.png?alt=media&token=c65d7f10-6a4a-4bed-baeb-2761feef136e",10))
+        threeDSneakerList.add(SneakerDataStruc("Cyberpunk Sneaker","c75cfb4e-c15f-4570-a8df-b8e229c2e6d7","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/cyberpunk.png?alt=media&token=63bec4a0-1b4f-44d8-8a55-9f797ff8a395",10))
+
+        var fsadapter= BackpackFirestoreAdapter(threeDSneakerList,sneakerCountMap,2)
+        fsrecyclerview.adapter=fsadapter
+//        }
+//        val list = arrayListOf<SneakerDataStruc>()
+//        db.collection("sneakers").document("legendary").get()
+//            .addOnSuccessListener { document ->
+//                if (document != null && document.exists()) {
+//                    list.addAll(document.toObject(SneakerData::class.java)!!.sneakerList)
+//
+//                } else {
+//                    Log.d("Firestore", "No such document")
 //                }
-//                outputStream.flush()
-//                outputStream.close()
-//                inputStream.close()
 //            }
-//            else{
-//                Toast.makeText(context, "Please take an image/video first", Toast.LENGTH_SHORT).show()
+//            .addOnFailureListener { exception ->
+//                Log.e("Firestore", "Error getting document: $exception")
 //            }
 
-        }
     }
-    val clearMediaPreviews = {
-        videoView.visibility = View.GONE
-        imageView.visibility = View.GONE
-    }
-    val captureLauncher = (requireActivity() as ComponentActivity).registerForActivityResult(CameraActivity.Capture) { result ->
-        Log.d(ContentValues.TAG, "Got capture result: $result")
-        when (result) {
-            is CameraActivity.Capture.Result.Success.Video -> {
-                videoView.visibility = View.VISIBLE
-                videoView.setVideoURI(result.uri)
-//                Toast.makeText(this, "${result.uri}", Toast.LENGTH_SHORT).show()
-                videoView.start()
-                imageView.visibility = View.GONE
-                captureResultLabel.text = null
-                uri = result.uri
-                typ=".mp4"
-
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//                    try {
-//                        val source = ImageDecoder.createSource(this.contentResolver, result.uri)
-//                        bitmap = ImageDecoder.decodeBitmap(source)
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//                else{
-//                    bitmap=MediaStore.Images.Media.getBitmap(this.contentResolver, result.uri)
-//                }
-            }
-            is CameraActivity.Capture.Result.Success.Image -> {
-                imageView.visibility = View.VISIBLE
-                imageView.setImageURI(result.uri)
-//                Toast.makeText(this, "${result.uri}", Toast.LENGTH_SHORT).show()
-                videoView.visibility = View.GONE
-                captureResultLabel.text = null
-                uri = result.uri
-                typ=".jpg"
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//                    try {
-//                        val source = ImageDecoder.createSource(this.contentResolver, result.uri)
-//                        bitmap = ImageDecoder.decodeBitmap(source)
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//                else{
-//                    bitmap=MediaStore.Images.Media.getBitmap(this.contentResolver, result.uri)
-//                }
-            }
-            is CameraActivity.Capture.Result.Cancelled -> {
-                captureResultLabel.text = getString(R.string.label_result_none)
-                clearMediaPreviews()
-            }
-            is CameraActivity.Capture.Result.Failure -> {
-                captureResultLabel.text = getString(
-                    R.string.label_result_failure, result.exception.toString()
-                )
-                clearMediaPreviews()
-            }
-//                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, imageUri))
-//            } else {
-//                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-//            }
-
-        }
-    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of

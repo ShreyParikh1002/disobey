@@ -53,7 +53,7 @@ class snapCam : AppCompatActivity() {
             }
         }
         if(type==1){
-            typeLensId="d36f63db-23f1-457b-8059-3914de823243"
+            typeLensId= intent.getStringExtra("lens").toString()
         }
         captureLauncher.launch(
             CameraActivity.Configuration.WithLens(

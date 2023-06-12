@@ -38,15 +38,33 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
             picasso.load(fslist[position].image)
                 .into(holder.image)
             holder.coin.text="x "+fsmap[fslist[position].name]
-            holder.coin.setOnClickListener{
+            holder.tryonButton.setOnClickListener{
                 val intent = Intent(holder.itemView.context, snapCam::class.java)
                 intent.putExtra("Type","1")
                 holder.itemView.context.startActivity(intent)
             }
 
+
         }
         if(fstype==2){
-
+            holder.coin.text="Try-On"
+            val str=fslist[position].name
+            val nameList=str.split(" ")
+            holder.name1.text=nameList[0]
+            if(nameList.size>1){
+                holder.name2.text=nameList[1]
+            }
+            holder.type.text=fslist[position].type
+            val picasso = Picasso.get()
+            picasso.load(fslist[position].image)
+                .into(holder.image)
+            holder.type.visibility=View.GONE
+            holder.tryonButton.setOnClickListener{
+                val intent = Intent(holder.itemView.context, snapCam::class.java)
+                intent.putExtra("Type","1")
+                intent.putExtra("lens",fslist[position].type)
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 
@@ -61,5 +79,6 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
         val image: ImageView= itemView.findViewById(R.id.sneakerImage)
         val coin: TextView = itemView.findViewById(R.id.coin)
         val card: CardView= itemView.findViewById(R.id.card)
+        val tryonButton: ImageView= itemView.findViewById(R.id.tryonButton)
     }
 }
