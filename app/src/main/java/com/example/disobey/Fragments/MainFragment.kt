@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -18,6 +19,7 @@ import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,10 +31,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.marginTop
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
-import com.bumptech.glide.Glide
 import com.example.disobey.R
 import com.example.disobey.SneakerData
 import com.example.disobey.SneakerDataStruc
@@ -355,6 +357,17 @@ class MainFragment : Fragment(), SensorEventListener {
     }
 
     private fun initLocationComponent() {
+        val imagePath = pref.getString("image_path", null)
+        var avatarDrawable: Drawable? = resources.getDrawable(R.drawable.disobeyavatar2d, null)
+        var avatarSize=0.2
+        if (imagePath != null) {
+
+            val avatarbitmap = BitmapFactory.decodeFile(imagePath)
+            avatarDrawable = BitmapDrawable(resources, avatarbitmap)
+            avatarSize=0.3
+            // Use the 'bitmap' object to display or process the image
+        }
+
         val locationComponentPlugin = mapView.location2
         locationComponentPlugin.apply {
             this.enabled = true
@@ -369,12 +382,7 @@ class MainFragment : Fragment(), SensorEventListener {
 //                        R.drawable.iconsneakers,
 //                    )
 //                },
-                topImage = context?.let {
-                    AppCompatResources.getDrawable(
-                        it,
-                        R.drawable.disobeyavatar2d,
-                    )
-                },
+                topImage = avatarDrawable,
                 scaleExpression = interpolate {
                     linear()
                     zoom()
@@ -384,7 +392,7 @@ class MainFragment : Fragment(), SensorEventListener {
                     }
                     stop {
                         literal(20.0)
-                        literal(0.2)
+                        literal(avatarSize)
                     }
                 }.toJson()
             )
@@ -600,13 +608,17 @@ class MainFragment : Fragment(), SensorEventListener {
         dialog.findViewById<ImageButton>(R.id.close).setOnClickListener {
             dialog.dismiss()
         }
+        dialog.findViewById<Button>(R.id.collect).setOnClickListener {
+            dialog.dismiss()
+        }
         var animationWindow=dialog.findViewById<LottieAnimationView>(R.id.animationView)
         var imageWindow=dialog.findViewById<ImageView>(R.id.reward)
         if(timeoutSet.contains(number)){
             dialog.findViewById<TextView>(R.id.t1).text = "You've already used up this stash"
+            imageWindow.visibility=View.GONE
             dialog.findViewById<TextView>(R.id.t2).visibility=View.GONE
             animationWindow.visibility=View.GONE
-
+            dialog.findViewById<Button>(R.id.collect).text="Ok"
         }
         else {
             timeoutSet.add(number)

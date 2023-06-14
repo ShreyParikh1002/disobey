@@ -2,14 +2,18 @@ package com.example.disobey
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -21,14 +25,19 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.OutputStream
 
 class Avatar : AppCompatActivity() {
+    lateinit var pref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_avatar)
+
+        pref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
         val infoLl = findViewById<RelativeLayout>(R.id.AvatarViewLayout)
         val saveButton = findViewById<ImageButton>(R.id.SaveImageButton)
@@ -39,6 +48,23 @@ class Avatar : AppCompatActivity() {
             val bitmap = getBitmapFromUiView(infoLl)
             //function call, pass the bitmap to save it
             //savedImageView.setImageBitmap(bitmap)
+            val file = File(this.filesDir, "avatarimage.png")
+            if (file.exists()) {
+                file.delete()
+            }
+            try {
+                val outputStream = FileOutputStream(file)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                outputStream.flush()
+                outputStream.close()
+
+                // Store the file path or URI in SharedPreferences
+                val editor = pref.edit()
+                editor.putString("image_path", file.absolutePath)
+                editor.apply()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
             saveBitmapImage(bitmap)
         }
 
@@ -351,20 +377,22 @@ class Avatar : AppCompatActivity() {
 
     private fun getBitmapFromUiView(view: View?): Bitmap {
         //Define a bitmap with the same size as the view
-        val returnedBitmap = Bitmap.createBitmap(view!!.width, view.height, Bitmap.Config.ARGB_8888)
+        view?.setBackgroundColor(Color.TRANSPARENT)
+        val returnedBitmap = Bitmap.createBitmap(2048, 2048, Bitmap.Config.ARGB_8888)
         //Bind a canvas to it
         val canvas = Canvas(returnedBitmap)
-        //Get the view's background
-        val bgDrawable = view.background
-        if (bgDrawable != null) {
-            //has background drawable, then draw it on the canvas
-            bgDrawable.draw(canvas)
-        } else {
-            //does not have background drawable, then draw white background on the canvas
-            canvas.drawColor(Color.WHITE)
-        }
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+        val left = (2048 - view?.width!! ?: 0) / 2
+        val top = (2048 - view?.height!! ?: 0) / 2
+        // Translate the canvas to the center position
+        canvas.translate(left.toFloat(), top.toFloat())
+
+        // Draw the view on the canvas
+        view?.draw(canvas)
+
         // draw the view on the canvas
-        view.draw(canvas)
+        view?.draw(canvas)
+        view?.setBackgroundColor(Color.WHITE)
 
         //return the bitmap
         return returnedBitmap

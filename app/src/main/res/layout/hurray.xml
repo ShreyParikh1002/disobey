@@ -43,7 +43,6 @@
             android:id="@+id/t1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:padding="10dp"
             android:text="Congratulations!!"
@@ -64,11 +63,12 @@
             android:textSize="20dp"/>
 
         <Button
-            android:id="@+id/find"
+            android:id="@+id/collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
-            android:text="Find me"/>
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:text="Collect"/>
     </LinearLayout>
 </LinearLayout>
