@@ -322,7 +322,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 .build()
         )
         mapView.getMapboxMap().loadStyle(
-            style(styleUri="mapbox://styles/shrey1002/clhre4h8x01z101pgaekh31wy/draft")
+            style(styleUri="mapbox://styles/shrey1002/clhre4h8x01z101pgaekh31wy")
             {
                 initLocationComponent()
                 setupGesturesListener()
@@ -521,25 +521,25 @@ class MainFragment : Fragment(), SensorEventListener {
         specialMarkerList =  ArrayList();
         var stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
         for (i in 0 until  50){
-            if(i<=36){
-                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.a))
-            }
-            else if(i<=44){
-                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.b))
-            }
-            else if(i<=48){
-                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.c))
-            }
-            else if(i==49){
-                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
-            }
+//            if(i<=36){
+//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.a))
+//            }
+//            else if(i<=44){
+//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.b))
+//            }
+//            else if(i<=48){
+//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.c))
+//            }
+//            else if(i==49){
+//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
+//            }
             var keyJsonObject = JSONObject();
             keyJsonObject.put("key",i);
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
                 .withPoint(Point.fromLngLat(coordinateList.get(i).longitude,coordinateList.get(i).latitude))
                 .withData(Gson().fromJson(keyJsonObject.toString(), JsonElement::class.java))
                 .withIconImage(stashIcon!!)
-                .withIconSize(0.8)
+                .withIconSize(0.2)
             markerList.add(pointAnnotationOptions);
         }
         val msneaker=SneakerData()
