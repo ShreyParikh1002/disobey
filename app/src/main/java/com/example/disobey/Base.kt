@@ -1,6 +1,8 @@
 package com.example.disobey
 
 import android.Manifest
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,7 +11,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -52,6 +56,7 @@ class Base : AppCompatActivity() {
     private var dailySteps = 0
     private var coins = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
@@ -71,6 +76,29 @@ class Base : AppCompatActivity() {
 //        initialSteps= pref.getInt("initialSteps",-1)
 //        disobeySteps= pref.getInt("disobeySteps",0)
 //        dailySteps= pref.getInt("dailySteps",0)
+
+        val mLocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        // Checking GPS is enabled
+        val mGPS = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if(!mGPS){
+            Toast.makeText(this,"Please switch on GPS/Location",Toast.LENGTH_SHORT).show()
+        }
+
+        val alarmy = getSystemService(ALARM_SERVICE) as AlarmManager
+        var triggerTime = System.currentTimeMillis() + (5 * 60 + 30) * 60 * 1000
+//            India is 5 hr 30 mins ahead so added it for IST conversion
+//            subtracting the remainder ((triggerTime)%(60*60*1000)) converts to to nearest hour
+
+        triggerTime=(((24*60+1)*60*1000)-(triggerTime% (24*60*60*1000)))+triggerTime- ((5 * 60 + 30) * 60 * 1000)
+        println(triggerTime)
+
+        val broadcast = Intent(this@Base, dailyReceiver::class.java)
+        val pi =
+            PendingIntent.getBroadcast(this@Base, 100, broadcast, PendingIntent.FLAG_MUTABLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmy.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pi)
+        }
 
         if (!hasPermissions()) {
             requestPermissions()
@@ -175,74 +203,4 @@ class Base : AppCompatActivity() {
         intent.data = uri
         startActivity(intent)
     }
-//    override fun onResume() {
-//        super.onResume()
-//        running = true
-//
-//        // TYPE_STEP_COUNTER:  A constant describing a step counter sensor
-//        // Returns the number of steps taken by the user since the last reboot while activated
-//        // This sensor requires permission android.permission.ACTIVITY_RECOGNITION.
-//        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-//
-//        if (stepSensor == null) {
-//            // show toast message, if there is no sensor in the device
-//            Toast.makeText(this, "No sensor detected on this device", Toast.LENGTH_SHORT).show()
-//        } else {
-//            // register listener with sensorManager
-//            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-//        }
-//    }
-//    override fun onSensorChanged(event: SensorEvent?) {
-//
-//        if (running) {
-//
-//            //get the number of steps taken by the user.
-//            totalSteps = event!!.values[0]
-//
-//            var currentSteps = totalSteps.toInt()
-//
-//            val myEdit = pref.edit()
-//            if(initialSteps==-1){
-//                myEdit.putInt("initialSteps",currentSteps)
-//                initialSteps=currentSteps
-//            }
-////            else if(currentSteps<initialSteps || currentSteps<disobeySteps){
-////                disobeySteps+=currentSteps
-////                initialSteps=currentSteps
-////            }
-//            else{
-//                dailySteps+=currentSteps-initialSteps
-//                disobeySteps+=currentSteps-initialSteps
-//                initialSteps=currentSteps
-//            }
-//            myEdit.putInt("disobeySteps",disobeySteps)
-//            myEdit.putInt("dailySteps",dailySteps)
-//            myEdit.putInt("initialSteps",initialSteps)
-////            if(disobeySteps>=100 && !tryOn.isEnabled){
-//////                Toast.makeText(this, "hurray", Toast.LENGTH_SHORT).show()
-//////                tryOn.isClickable=true
-//////                tryOn.alpha=1.0f
-////                var dialog=Dialog(this)
-////                dialog.setContentView(R.layout.hurray)
-////                dialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
-////                dialog.show()
-////                dialog.findViewById<ImageButton>(R.id.close).setOnClickListener {
-////                    dialog.dismiss()
-////                }
-////                tryOn.isEnabled=true
-////
-////
-////            }
-//
-//            // set current steps in textview
-////            stepsTaken.text = ("$dailySteps")
-////            coins=dailySteps/100
-////            coinsEarned.text = ("${coins}")
-//            myEdit.commit()
-//        }
-//    }
-//    //
-//    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-////        TODO("Implemented not required")
-//    }
 }

@@ -62,9 +62,9 @@ class midnightService : Service() {
                 val document = data.result
                 if (document.exists()) {
                     id.update("disobeySteps",disobeySteps)
-                    Log.i("TAG", "Document exists!")
+                    Log.i("TAG", "Leaderboard Document exists!")
                 } else {
-                    Log.i("TAG", "Document does not exist!")
+                    Log.i("TAG", "Leaderboard Document does not exist!")
                     val docData = hashMapOf(
                         "name" to user.displayName,
                         "disobeySteps" to disobeySteps
@@ -72,7 +72,7 @@ class midnightService : Service() {
                     id.set(docData)
                 }
             } else {
-                Log.i("TAG", "Failed with: ", data.exception)
+                Log.i("TAG", "Leaderboard Failed with: ", data.exception)
             }
         }
 

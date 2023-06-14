@@ -1,35 +1,19 @@
 package com.example.disobey.Fragments
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import android.widget.VideoView
-import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.disobey.BackpackFirestoreAdapter
+import com.example.disobey.BackpackAdapter
 import com.example.disobey.R
 import com.example.disobey.SneakerDataStruc
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.snap.camerakit.support.app.CameraActivity
-import java.io.File
-import java.io.FileOutputStream
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,7 +56,7 @@ class CameraFragment : Fragment() {
         threeDSneakerList.add(SneakerDataStruc("Hyper Sneaker","32960919-ddaf-46ab-b4ba-724097569166","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/hyperSneaker.png?alt=media&token=c65d7f10-6a4a-4bed-baeb-2761feef136e",10))
         threeDSneakerList.add(SneakerDataStruc("Cyberpunk Sneaker","c75cfb4e-c15f-4570-a8df-b8e229c2e6d7","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/cyberpunk.png?alt=media&token=63bec4a0-1b4f-44d8-8a55-9f797ff8a395",10))
 
-        var fsadapter= BackpackFirestoreAdapter(threeDSneakerList,sneakerCountMap,2)
+        var fsadapter= BackpackAdapter(threeDSneakerList,sneakerCountMap,2)
         fsrecyclerview.adapter=fsadapter
 //        }
 //        val list = arrayListOf<SneakerDataStruc>()

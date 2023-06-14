@@ -3,7 +3,6 @@ package com.example.disobey
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,7 +99,7 @@ class Backpack : Fragment() {
 //        GlobalScope.launch(Dispatchers.Main) {
 //            val sneakerListDeferred = msneaker.firestoreRetrieve()
 //            mySneakerList = sneakerListDeferred.await()
-            var fsadapter= BackpackFirestoreAdapter(backpackSneakerList,sneakerCountMap,1)
+            var fsadapter= BackpackAdapter(backpackSneakerList,sneakerCountMap,1)
             fsrecyclerview.adapter=fsadapter
 //        }
 //        mySneakerList.add(SneakerDataStruc("test","epic","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/clownKickers.png?alt=media&token=6fcf0956-f614-428b-8d9e-c69de11beafa",10))

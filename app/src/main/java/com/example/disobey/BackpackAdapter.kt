@@ -1,6 +1,5 @@
 package com.example.disobey
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.view.LayoutInflater
@@ -10,22 +9,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.snap.camerakit.LegalProcessor
+import com.snap.camerakit.Session
+import com.snap.camerakit.lenses.LensesComponent.Noop.processor
+import com.snap.camerakit.newBuilder
 import com.squareup.picasso.Picasso
+import okhttp3.internal.wait
 
-public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataStruc>,private val fsmap: HashMap<String, Int>, private val fstype:Int):RecyclerView.Adapter<BackpackFirestoreAdapter.ViewHolder>() {
+public class BackpackAdapter(private val fslist: ArrayList<SneakerDataStruc>, private val fsmap: HashMap<String, Int>, private val fstype:Int):RecyclerView.Adapter<BackpackAdapter.ViewHolder>() {
     val sneakerCountMap = hashMapOf<String, Int>()
     lateinit var pref: SharedPreferences
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BackpackFirestoreAdapter.ViewHolder {
+    ): BackpackAdapter.ViewHolder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.backpackcard,parent,false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BackpackFirestoreAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BackpackAdapter.ViewHolder, position: Int) {
         if(fstype==1){
             val str=fslist[position].name
             val nameList=str.split(" ")
@@ -47,7 +49,7 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
 
         }
         if(fstype==2){
-            holder.coin.text="Try-On"
+            holder.coin.text="x 1"
             val str=fslist[position].name
             val nameList=str.split(" ")
             holder.name1.text=nameList[0]
@@ -59,7 +61,13 @@ public class BackpackFirestoreAdapter(private val fslist: ArrayList<SneakerDataS
             picasso.load(fslist[position].image)
                 .into(holder.image)
             holder.type.visibility=View.GONE
+            holder.tryonButton.visibility=View.VISIBLE
             holder.tryonButton.setOnClickListener{
+
+//                val kitsession=Session.newBuilder(it.context).build()
+//                kitsession.processor.waitFor(requestUpdate = LegalProcessor.Input.RequestUpdate.ALWAYS) { result ->
+//                    println("Got legal processor result: $result")
+//                }
                 val intent = Intent(holder.itemView.context, snapCam::class.java)
                 intent.putExtra("Type","1")
                 intent.putExtra("lens",fslist[position].type)

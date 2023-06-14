@@ -64,14 +64,7 @@
             android:name="com.snap.camerakit.api.token"
             android:value="${SNAP_API_KEY}" />
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
 
         <receiver
             android:name=".RebootReceiver"

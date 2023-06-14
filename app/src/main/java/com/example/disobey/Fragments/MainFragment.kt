@@ -15,6 +15,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
@@ -246,12 +247,26 @@ class MainFragment : Fragment(), SensorEventListener {
         scan.setOnClickListener {
             val currentDate = LocalDate.now().toString()
             val storedDate = pref.getString("storedDate", null)
-            if(storedDate!=currentDate){
+
+            val lat = pref.getString("latitude", "0.0")!!.toDouble()
+            val lon = pref.getString("longitude", "0.0")!!.toDouble()
+            val location1 = Location("point A")
+            location1.latitude = lat
+            location1.longitude = lon
+
+            val location2 = Location("point B")
+            location2.latitude = currentLatitude
+            location2.longitude = currentLongitude
+
+            var distance = location1.distanceTo(location2)
+            if(storedDate!=currentDate || distance>1000){
                 createLatLongForMarker()
                 timeoutSet.clear()
                 buttonPressed=true
                 val editor = pref.edit()
                 editor.putString("storedDate", currentDate)
+                editor.putString("latitude", currentLatitude.toString())
+                editor.putString("longitude", currentLongitude.toString())
                 editor.apply()
             }
             else{
@@ -494,7 +509,7 @@ class MainFragment : Fragment(), SensorEventListener {
 
 //            distance check
 //            Toast.makeText(this,"dist "+(abs(pointerLatitude-currentLatitude)*100000)%1000+"\n"+(abs(currentLongitude-pointerLongitude)*100000)%1000,  Toast.LENGTH_SHORT).show()
-            if(abs(pointerLatitude-currentLatitude) <=10.0005 && abs(currentLongitude-pointerLongitude) <=10.0005){
+            if(abs(pointerLatitude-currentLatitude) <=0.0005 && abs(currentLongitude-pointerLongitude) <=0.0005){
                 onMarkerItemClick(annotation)
             }
             else{

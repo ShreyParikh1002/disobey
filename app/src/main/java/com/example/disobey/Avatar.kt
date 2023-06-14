@@ -346,10 +346,6 @@ class Avatar : AppCompatActivity() {
             // your code to perform when the user clicks on the button
             SneakerImage.setImageResource( R.drawable.high_top_sneakerss)
         }
-
-
-
-
     }
 
 
