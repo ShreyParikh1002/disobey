@@ -1,10 +1,17 @@
 package com.example.disobey.Fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.disobey.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +45,58 @@ class TradeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_trade, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.enter).setOnClickListener{
+//            val alertDialogBuilder = AlertDialog.Builder(context)
+//            alertDialogBuilder.setMessage("Event is live: Walk, collect and earn to ace the leaderboards\nRaffle entry for top 100 players to win exclusive Nike Sneaker worth Rs 12K")
+//            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            val alertDialog = alertDialogBuilder.create()
+//            alertDialog.show()
+            var dialog= Dialog(requireContext())
+            dialog.setContentView(R.layout.hurray)
+            dialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.findViewById<ImageButton>(R.id.close).setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.findViewById<Button>(R.id.collect).setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.findViewById<TextView>(R.id.t1).text="Event is live"
+            dialog.findViewById<LottieAnimationView>(R.id.animationView).visibility=View.GONE
+            dialog.findViewById<ImageView>(R.id.reward).visibility=View.GONE
+            dialog.findViewById<TextView>(R.id.t2).text="Walk, collect and earn to ace the leaderboards\n\nRaffle entry for top 100 players to win exclusive Nike Sneaker worth Rs 12K\n"
+            dialog.findViewById<Button>(R.id.collect).text="Ok"
+            dialog.show()
+        }
+        view.findViewById<Button>(R.id.coming).setOnClickListener{
+//            val alertDialogBuilder = AlertDialog.Builder(context)
+//            alertDialogBuilder.setMessage("Stay tuned for our upcoming tournament and get a chance to win Nike lost and found worth Rs 50k")
+//            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            val alertDialog = alertDialogBuilder.create()
+//            alertDialog.show()
+
+            var dialog= Dialog(requireContext())
+            dialog.setContentView(R.layout.hurray)
+            dialog.findViewById<TextView>(R.id.t1).text="Stay tuned for our upcoming tournament"
+            dialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.findViewById<ImageButton>(R.id.close).setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.findViewById<Button>(R.id.collect).setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.findViewById<LottieAnimationView>(R.id.animationView).visibility=View.GONE
+            dialog.findViewById<ImageView>(R.id.reward).visibility=View.GONE
+            dialog.findViewById<TextView>(R.id.t2).text="Get a chance to win Nike Lost and Found worth Rs 50k\n"
+            dialog.findViewById<Button>(R.id.collect).text="Ok"
+            dialog.show()
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

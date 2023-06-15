@@ -72,13 +72,26 @@ class snapCam : AppCompatActivity() {
             )
         }
         findViewById<Button>(R.id.download).setOnClickListener{
-            if(::uri.isInitialized
-            ){
+//            if(::uri.isInitialized
+//            ){
+////                val inputStream = contentResolver.openInputStream(uri)
+////                val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//////                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+////                val fileName = "DisobeyImage_"+typ
+//////                println(mimeType+ fileName)
+////                val file = File(outputDir, fileName)
+////                val outputStream = FileOutputStream(file)
+////                val buffer = ByteArray(1024)
+////                var length = 0
+////                while ((inputStream!!.read(buffer).also { length = it }) > 0) {
+////                    outputStream.write(buffer, 0, length)
+////                }
+////                outputStream.flush()
+////                outputStream.close()
+////                inputStream.close()
 //                val inputStream = contentResolver.openInputStream(uri)
 //                val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-////                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-//                val fileName = "DisobeyImage_"+typ
-////                println(mimeType+ fileName)
+//                val fileName = "meow.jpg"
 //                val file = File(outputDir, fileName)
 //                val outputStream = FileOutputStream(file)
 //                val buffer = ByteArray(1024)
@@ -89,25 +102,12 @@ class snapCam : AppCompatActivity() {
 //                outputStream.flush()
 //                outputStream.close()
 //                inputStream.close()
-                val inputStream = contentResolver.openInputStream(uri)
-                val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val fileName = "meow.jpg"
-                val file = File(outputDir, fileName)
-                val outputStream = FileOutputStream(file)
-                val buffer = ByteArray(1024)
-                var length = 0
-                while ((inputStream!!.read(buffer).also { length = it }) > 0) {
-                    outputStream.write(buffer, 0, length)
-                }
-                outputStream.flush()
-                outputStream.close()
-                inputStream.close()
-
-
-            }
-            else{
-                Toast.makeText(this, "Please take an image/video first", Toast.LENGTH_SHORT).show()
-            }
+//
+//
+//            }
+//            else{
+                Toast.makeText(this, "coming soon", Toast.LENGTH_SHORT).show()
+//            }
 
         }
     }

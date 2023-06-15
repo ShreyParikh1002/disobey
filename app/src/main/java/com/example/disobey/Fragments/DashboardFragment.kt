@@ -52,8 +52,12 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chipNavigationBar = view.findViewById(R.id.nav)
-        avatarButton=view.findViewById(R.id.avatar)
+        avatarButton=view.findViewById(R.id.avatar1)
         avatarButton.setOnClickListener{
+            val avatarIntent = Intent(context, Avatar::class.java)
+            startActivity(avatarIntent)
+        }
+        view.findViewById<ImageButton>(R.id.avatar2).setOnClickListener{
             val avatarIntent = Intent(context, Avatar::class.java)
             startActivity(avatarIntent)
         }

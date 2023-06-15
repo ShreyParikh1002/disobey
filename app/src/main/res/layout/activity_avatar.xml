@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".Avatar">
@@ -226,6 +227,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/BottomCardViewSection"
+        android:backgroundTint="@color/white"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"
@@ -266,6 +269,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
                         android:backgroundTint="@android:color/black"
                         android:text="Male" />
 
@@ -273,6 +277,7 @@
                         android:id="@+id/FemaleSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
@@ -847,6 +852,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
+
+                        android:textColor="@color/white"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
                         android:text="Hoodies" />
@@ -857,6 +864,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
+
+                        android:textColor="@color/white"
                         android:backgroundTint="@android:color/black"
                         android:text="Tee Shirts" />
                 </LinearLayout>
@@ -1490,6 +1499,8 @@
                     <Button
                         android:id="@+id/ShortsSubSecButton"
                         android:layout_width="wrap_content"
+
+                        android:textColor="@color/white"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
@@ -1498,6 +1509,8 @@
 
                     <Button
                         android:id="@+id/PantsSubSecButton"
+
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"

@@ -137,7 +137,7 @@ class MainFragment : Fragment(), SensorEventListener {
     private var dailyCoins = 0F
     private var coins = 0
     private var unwrittenStashCount = 0
-    val timeoutSet = mutableSetOf(24)
+    var timeoutSet = mutableSetOf(50)
 
     var annotationApi : AnnotationPlugin? = null
     lateinit var annotaionConfig : AnnotationConfig
@@ -184,6 +184,12 @@ class MainFragment : Fragment(), SensorEventListener {
 //            unwrittenStashCount = pref.getInt("unwrittenStashCount",-1)
             val sneakerMapJson = pref.getString("sneakerCountMap", null)
             val backpackSneakerListJson = pref.getString("backpackSneakerList", null)
+            val timeoutString = pref.getString("timeOut", null)
+            if(timeoutString!=null){
+                timeoutSet = timeoutString?.split(",")?.mapNotNull { it.toIntOrNull() }?.toMutableSet()!!
+//                println(timeoutSet)
+//                println(timeoutString)
+            }
             val gson = Gson()
             if(sneakerMapJson!=null){
                 sneakerCountMap = gson.fromJson(sneakerMapJson, object : com.google.gson.reflect.TypeToken<HashMap<String, Int>>() {}.type)
@@ -273,6 +279,8 @@ class MainFragment : Fragment(), SensorEventListener {
                 editor.putString("storedDate", currentDate)
                 editor.putString("latitude", currentLatitude.toString())
                 editor.putString("longitude", currentLongitude.toString())
+                val timeoutString = timeoutSet.joinToString(",")
+                editor.putString("timeOut",timeoutString)
                 editor.apply()
             }
             else{
@@ -532,8 +540,8 @@ class MainFragment : Fragment(), SensorEventListener {
         })
         markerList =  ArrayList();
         specialMarkerList =  ArrayList();
-        val randomThreeD=(15..30).random()
-        Collections.swap(coordinateList,0,randomThreeD)
+//        val randomThreeD=(15..30).random()
+        Collections.swap(coordinateList,0,23)
         var stashIconSize=0.4
         var stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
         for (i in 0 until  50){
@@ -672,6 +680,8 @@ class MainFragment : Fragment(), SensorEventListener {
             editor.putString("sneakerCountMap", sneakerMapJson)
             editor.putFloat("dailyCoins",dailyCoins)
             editor.putFloat("disobeyCoins",disobeyCoins)
+            val timeoutString = timeoutSet.joinToString(",")
+            editor.putString("timeOut",timeoutString)
             // set current steps in textview
             stepsTaken.text = ("${dailySteps}")
             coinsEarned.text = ("${dailyCoins.toInt()}")

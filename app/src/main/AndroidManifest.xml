@@ -63,7 +63,9 @@
         <meta-data
             android:name="com.snap.camerakit.api.token"
             android:value="${SNAP_API_KEY}" />
-
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
 
         <receiver
