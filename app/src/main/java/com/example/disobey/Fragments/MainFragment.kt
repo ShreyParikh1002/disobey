@@ -132,6 +132,8 @@ class MainFragment : Fragment(), SensorEventListener {
     private var initialSteps = 0
     private var disobeySteps = 0
     private var dailySteps = 0
+    private var disobeyCoins = 0F
+    private var dailyCoins = 0F
     private var coins = 0
     private var unwrittenStashCount = 0
     val timeoutSet = mutableSetOf(24)
@@ -291,12 +293,13 @@ class MainFragment : Fragment(), SensorEventListener {
         initialSteps= pref.getInt("initialSteps",-1)
         disobeySteps= pref.getInt("disobeySteps",0)
         dailySteps= pref.getInt("dailySteps",0)
+        disobeyCoins= pref.getFloat("disobeyCoins", 0F)
+        dailyCoins= pref.getFloat("dailyCoins",0F)
 //        if(disobeySteps>100){
 //            tryOn.isEnabled=true
 //        }
         stepsTaken.text = ("${dailySteps}")
-        coins=dailySteps/100
-        coinsEarned.text = ("${coins}")
+        coinsEarned.text = ("${dailyCoins.toInt()}")
 
         val coordinateListString = pref.getString("coordinateList", null)
         if (coordinateListString != null) {
@@ -631,10 +634,19 @@ class MainFragment : Fragment(), SensorEventListener {
             animationWindow.visibility=View.GONE
             dialog.findViewById<Button>(R.id.collect).text="Ok"
         }
+        else if(timeoutSet.size>=20){
+            dialog.findViewById<TextView>(R.id.t1).text = "You can only collect 20 stashes per day try again tomorrow"
+            imageWindow.visibility=View.GONE
+            dialog.findViewById<TextView>(R.id.t2).visibility=View.GONE
+            animationWindow.visibility=View.GONE
+            dialog.findViewById<Button>(R.id.collect).text="Ok"
+        }
         else {
             timeoutSet.add(number)
             val gson = Gson()
             val user = FirebaseAuth.getInstance().currentUser
+            disobeyCoins+=sneakerList[number].coin
+            dailyCoins+=sneakerList[number].coin
             val picasso = Picasso.get()
             val markerSneaker=sneakerList[number].name
             picasso.load(sneakerList[number].image)
@@ -652,6 +664,11 @@ class MainFragment : Fragment(), SensorEventListener {
             val sneakerMapJson = gson.toJson(sneakerCountMap)
             val editor = pref.edit()
             editor.putString("sneakerCountMap", sneakerMapJson)
+            editor.putFloat("dailyCoins",dailyCoins)
+            editor.putFloat("disobeyCoins",disobeyCoins)
+            // set current steps in textview
+            stepsTaken.text = ("${dailySteps}")
+            coinsEarned.text = ("${dailyCoins.toInt()}")
             editor.apply()
             val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
 //            docRef.get().addOnSuccessListener { documentSnapshot ->
@@ -789,11 +806,17 @@ class MainFragment : Fragment(), SensorEventListener {
             else{
                 dailySteps+=currentSteps-initialSteps
                 disobeySteps+=currentSteps-initialSteps
+                if(dailySteps<=10000){
+                    dailyCoins+=((currentSteps-initialSteps)*0.01F)
+                    disobeyCoins+=((currentSteps-initialSteps)*0.01F)
+                }
                 initialSteps=currentSteps
             }
             myEdit.putInt("disobeySteps",disobeySteps)
             myEdit.putInt("dailySteps",dailySteps)
             myEdit.putInt("initialSteps",initialSteps)
+            myEdit.putFloat("dailyCoins",dailyCoins)
+            myEdit.putFloat("disobeyCoins",disobeyCoins)
 //            if(disobeySteps>=100 && !tryOn.isEnabled){
 ////                Toast.makeText(this, "hurray", Toast.LENGTH_SHORT).show()
 ////                tryOn.isClickable=true
@@ -811,9 +834,8 @@ class MainFragment : Fragment(), SensorEventListener {
 //            }
 
             // set current steps in textview
-            stepsTaken.text = ("$dailySteps")
-            coins=dailySteps/100
-            coinsEarned.text = ("${coins}")
+            stepsTaken.text = ("${dailySteps}")
+            coinsEarned.text = ("${dailyCoins.toInt()}")
             myEdit.commit()
         }
     }
