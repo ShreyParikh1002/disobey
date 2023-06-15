@@ -32,6 +32,8 @@ class midnightService : Service() {
         val db = FirebaseFirestore.getInstance()
         var pref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val myEdit = pref.edit()
+        var disobeyCoins= pref.getFloat("disobeyCoins",0F)
+        var dailyCoins= pref.getFloat("dailyCoins",0F)
         var disobeySteps= pref.getInt("disobeySteps",0)
         var dailySteps= pref.getInt("dailySteps",0)
 
@@ -39,7 +41,7 @@ class midnightService : Service() {
             val channel = NotificationChannel(
                 "com.example.floatinglayout",
                 "Floating Layout Service",
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_HIGH
             )
             channel.lightColor = Color.BLUE
             channel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
@@ -56,29 +58,31 @@ class midnightService : Service() {
             startForeground(2, notification)
         }
 
-        val id = db.collection("leaderboards").document(user!!.uid)
-        id.get().addOnCompleteListener { data ->
-            if (data.isSuccessful) {
-                val document = data.result
-                if (document.exists()) {
-                    id.update("disobeySteps",disobeySteps)
-                    Log.i("TAG", "Leaderboard Document exists!")
-                } else {
-                    Log.i("TAG", "Leaderboard Document does not exist!")
-                    val docData = hashMapOf(
-                        "name" to user.displayName,
-                        "disobeySteps" to disobeySteps
-                    )
-                    id.set(docData)
-                }
-            } else {
-                Log.i("TAG", "Leaderboard Failed with: ", data.exception)
-            }
-        }
-
-
+        val id = db.collection("leaderboards").document("hyderabad")
+        val data= hashMapOf(user!!.uid to LeaderboardsUserData(user!!.displayName,disobeyCoins.toInt()))
+        id.set(data,SetOptions.merge())
+//        id.get().addOnCompleteListener { data ->
+//            if (data.isSuccessful) {
+//                val document = data.result
+//                if (document.exists()) {
+////                    id.update("disobeySteps",disobeySteps)
+//
+////                    Log.i("TAG", "Leaderboard Document exists!")
+//                } else {
+////                    Log.i("TAG", "Leaderboard Document does not exist!")
+////                    val docData = hashMapOf(
+////                        "name" to user.displayName,
+////                        "disobeySteps" to disobeySteps
+////                    )
+////                    id.set(docData)
+//                }
+//            } else {
+//                Log.i("TAG", "Leaderboard Failed with: ", data.exception)
+//            }
+//        }
 
         myEdit.putInt("dailySteps",0)
+        myEdit.putFloat("dailyCoins",0F)
         myEdit.apply()
 
         dailySteps= pref.getInt("dailySteps",0)

@@ -8,13 +8,7 @@
     tools:context=".Fragments.TradeFragment">
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        app:lottie_rawRes="@raw/coming_soon"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"/>
+
 <!--    <TextView-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

@@ -35,6 +35,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.marginTop
 import com.airbnb.lottie.LottieAnimationView
+import com.example.disobey.LeaderboardsUserData
 import com.example.disobey.R
 import com.example.disobey.SneakerData
 import com.example.disobey.SneakerDataStruc
@@ -191,7 +192,7 @@ class MainFragment : Fragment(), SensorEventListener {
             else{
                 println("no sneaker map yet")
             }
-            if(sneakerMapJson!=null){
+            if(backpackSneakerListJson!=null){
                 backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
                 println(backpackSneakerList)
             }
@@ -531,25 +532,30 @@ class MainFragment : Fragment(), SensorEventListener {
         })
         markerList =  ArrayList();
         specialMarkerList =  ArrayList();
-        val randomThreeD=(20..35).random()
+        val randomThreeD=(15..30).random()
         Collections.swap(coordinateList,0,randomThreeD)
+        var stashIconSize=0.4
         var stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
         for (i in 0 until  50){
             if(i<=1){
                 stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker_new))
             }
-//            else if(i<=36){
-//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.a))
-//            }
-//            else if(i<=44){
-//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.b))
-//            }
-//            else if(i<=48){
-//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.c))
-//            }
-//            else if(i==49){
-//                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
-//            }
+            else if(i<=31){
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
+                stashIconSize=0.15
+            }
+            else if(i<=39){
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.b))
+                stashIconSize=0.4
+            }
+            else if(i<=47){
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.c))
+                stashIconSize=0.4
+            }
+            else if(i<=49){
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
+                stashIconSize=0.4
+            }
             else{
                 stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
             }
@@ -559,7 +565,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 .withPoint(Point.fromLngLat(coordinateList.get(i).longitude,coordinateList.get(i).latitude))
                 .withData(Gson().fromJson(keyJsonObject.toString(), JsonElement::class.java))
                 .withIconImage(stashIcon!!)
-                .withIconSize(0.2)
+                .withIconSize(stashIconSize)
 
             markerList.add(pointAnnotationOptions);
         }
@@ -653,7 +659,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 .into(imageWindow)
             dialog.findViewById<TextView>(R.id.t1).text = markerSneaker
             sneakerCountMap[markerSneaker] = (sneakerCountMap[markerSneaker] as? Int ?: 0) + 1
-            if(sneakerCountMap[markerSneaker]==1){
+            if(sneakerCountMap[markerSneaker]==1 && number!=0 && number!=1){
                 backpackSneakerList.add(sneakerList[number])
                 val backpackSneakerListJson = gson.toJson(backpackSneakerList)
                 val editor = pref.edit()
@@ -670,7 +676,11 @@ class MainFragment : Fragment(), SensorEventListener {
             stepsTaken.text = ("${dailySteps}")
             coinsEarned.text = ("${dailyCoins.toInt()}")
             editor.apply()
-            val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
+
+//            --------------------------------------------------------------
+
+//            --------------------------------------------------------------
+//            val docRef = db.collection("userData").document(user!!.uid).collection("backpack").document("count")
 //            docRef.get().addOnSuccessListener { documentSnapshot ->
 //                if (documentSnapshot.exists()) {
 //                    println("document exist")

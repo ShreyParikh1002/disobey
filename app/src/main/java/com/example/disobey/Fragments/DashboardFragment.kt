@@ -58,13 +58,13 @@ class DashboardFragment : Fragment() {
             startActivity(avatarIntent)
         }
         chipNavigationBar.setItemSelected(
-            R.id.bottom_nav_stats,
+            R.id.bottom_nav_backpack,
             true
         )
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(
                 R.id.secondary_fragment_container,
-                Stats()
+                Backpack()
             ).commit()
         bottomMenu()
     }

@@ -1,24 +1,18 @@
 package com.example.disobey.Fragments
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.disobey.BuildConfig
 import com.example.disobey.LeaderboardsFirestoreAdapter
 import com.example.disobey.LeaderboardsUserData
 import com.example.disobey.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,39 +55,45 @@ class LeaderboardFragment : Fragment() {
         fsrecyclerview.layoutManager = LinearLayoutManager(context)
 
         val db = FirebaseFirestore.getInstance()
-        var leaderBoardsList=db.collection("leaderboards").orderBy("disobeySteps", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { queryDocumentSnapshots ->
-                if (!queryDocumentSnapshots.isEmpty) {
-                    val list = queryDocumentSnapshots.documents
-                    for (d in list) {
-                        var v = d.toObject(LeaderboardsUserData::class.java)
-                        if (v != null) {
-                            userList.add(v)
-                            fsadapter.notifyDataSetChanged()
+        var documentRef=db.collection("leaderboards").document("hyderabad")
+        documentRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val leaderboardData = documentSnapshot.data
+//                    println(leaderboardData)
+//                    println(leaderboardData?.javaClass)
+                    if (leaderboardData != null) {
+                        for ((_, userData) in leaderboardData) {
+                            println(userData.javaClass)
+                            var temp = userData as HashMap<String?, Any?>
+                            var coin=temp.get("disobeySteps").toString().toInt()
+                            var name=temp.get("name").toString()
+                            userList.add(LeaderboardsUserData(name,coin))
+//                            fsadapter.notifyDataSetChanged()
+//                            println(leaderboardList)
+//                            println(""+coin?.javaClass + " "+ name?.javaClass)
                         }
-
-                        Log.i("TAGG",""+v?.name+" "+v?.disobeySteps+" "+d.id)
                     }
-//                    courseRVAdapter.notifyDataSetChanged()
+//                    for ((index, entry) in userList.withIndex()) {
+//                        val rank = index + 1
+//                        val name = entry.name
+//                        val coins = entry.disobeySteps
+//                        println("Rank $rank: $name - $coins coins")
+//                    }
+
+                    // Sort the leaderboard list based on coins (descending order)
+                    userList.sortByDescending { it.disobeySteps }
+                    fsadapter.notifyDataSetChanged()
+
                 } else {
-                    // if the snapshot is empty we are displaying a toast message.
-//                    Toast.makeText(
-//                        requireActivity(),
-//                        "No data found in Database",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+                    println("Document doesn't exist")
                 }
-            }.addOnFailureListener { // if we do not get any data or any error we are displaying
-                // a toast message that we do not get any data
-//                Toast.makeText(requireActivity(), "Fail to get the data.", Toast.LENGTH_SHORT)
-//                    .show()
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting document: $exception")
             }
 
         fsrecyclerview.adapter=fsadapter
-        Log.i("TAGG",""+leaderBoardsList)
-        println(leaderBoardsList)
-
 
 
         return LeaderboardView;

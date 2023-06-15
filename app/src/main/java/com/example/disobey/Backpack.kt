@@ -85,7 +85,7 @@ class Backpack : Fragment() {
         else{
             println("no sneaker map yet")
         }
-        if(sneakerMapJson!=null){
+        if(backpackSneakerListJson!=null){
             backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
             println(backpackSneakerList)
         }

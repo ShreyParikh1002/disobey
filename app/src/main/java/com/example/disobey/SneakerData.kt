@@ -37,10 +37,10 @@ class SneakerData {
 
             // Continue with the next part of your code here
             createSneakerList(threeDList,2)
-            createSneakerList(commonList,35)
+            createSneakerList(commonList,30)
             createSneakerList(rareList,8)
-            createSneakerList(epicList,4)
-            createSneakerList(legendaryList,1)
+            createSneakerList(epicList,8)
+            createSneakerList(legendaryList,2)
             sneakerList
         }
 
