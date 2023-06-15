@@ -79,6 +79,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import java.time.LocalDate
+import java.util.Collections
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -527,9 +528,14 @@ class MainFragment : Fragment(), SensorEventListener {
         })
         markerList =  ArrayList();
         specialMarkerList =  ArrayList();
+        val randomThreeD=(20..35).random()
+        Collections.swap(coordinateList,0,randomThreeD)
         var stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
         for (i in 0 until  50){
-//            if(i<=36){
+            if(i<=1){
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker_new))
+            }
+//            else if(i<=36){
 //                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.a))
 //            }
 //            else if(i<=44){
@@ -541,6 +547,9 @@ class MainFragment : Fragment(), SensorEventListener {
 //            else if(i==49){
 //                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.d))
 //            }
+            else{
+                stashIcon = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.simple_marker))
+            }
             var keyJsonObject = JSONObject();
             keyJsonObject.put("key",i);
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
@@ -548,8 +557,10 @@ class MainFragment : Fragment(), SensorEventListener {
                 .withData(Gson().fromJson(keyJsonObject.toString(), JsonElement::class.java))
                 .withIconImage(stashIcon!!)
                 .withIconSize(0.2)
+
             markerList.add(pointAnnotationOptions);
         }
+
         val msneaker=SneakerData()
 //        sneakerList=msneaker.firestoreRetrieve()
         GlobalScope.launch(Dispatchers.Main) {

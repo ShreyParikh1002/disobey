@@ -3,6 +3,7 @@ package com.example.disobey
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,10 +15,19 @@ public class LeaderboardsFirestoreAdapter(private val fslist: ArrayList<Leaderbo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.rank.text= (position+1).toString()
+        holder.rank.text= "Rank "+(position+1).toString()
         val userdata = fslist[position]
-        holder.disobeySteps.text= userdata.disobeySteps.toString()
+        holder.disobeySteps.text= "Steps: " + userdata.disobeySteps.toString()
         holder.name.text=userdata.name
+        if(position==0){
+            holder.crown.setImageResource(R.drawable.crown_one)
+        }
+        else if(position==1){
+            holder.crown.setImageResource(R.drawable.crown_two)
+        }
+        else if(position==2){
+            holder.crown.setImageResource(R.drawable.crown_three)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -28,5 +38,6 @@ public class LeaderboardsFirestoreAdapter(private val fslist: ArrayList<Leaderbo
         val disobeySteps: TextView = itemView.findViewById(R.id.steps)
         val name: TextView = itemView.findViewById(R.id.user)
         val rank:TextView=itemView.findViewById(R.id.rank)
+        val crown:ImageView=itemView.findViewById(R.id.crown)
     }
 }

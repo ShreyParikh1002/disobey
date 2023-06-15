@@ -3,81 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Fragments.LeaderboardFragment">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/trophy"/>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
         android:src="@drawable/leaderboard"/>
-    <FrameLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center"
-            android:src="@drawable/leaderboards_header"/>
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/sheep"/>
-    </FrameLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/steps"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="step"/>
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:text="name"
-            />
-        <TextView
-            android:id="@+id/coin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="coins"
-            />
-    </LinearLayout>
+        android:layout_marginTop="15dp"
+        android:layout_height="2dp"
+        android:background="#C8C6C6"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:gravity="center"
         android:paddingVertical="20dp"
         android:textStyle="bold"
         android:text="Leaderboards update at midnight"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#C8C6C6"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboardsRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:paddingHorizontal="20dp"/>
 
 </LinearLayout>

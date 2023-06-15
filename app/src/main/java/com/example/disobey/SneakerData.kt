@@ -14,6 +14,7 @@ data class SneakerDataStruc(val name:String="", val type:String="", val image:St
 
 class SneakerData {
     var sneakerData = ArrayList<SneakerDataStruc>()
+    var threeDList = ArrayList<SneakerDataStruc>()
     var commonList = ArrayList<SneakerDataStruc>()
     var rareList = ArrayList<SneakerDataStruc>()
     var epicList = ArrayList<SneakerDataStruc>()
@@ -22,18 +23,21 @@ class SneakerData {
     val db = FirebaseFirestore.getInstance()
     fun firestoreRetrieve(): Deferred<ArrayList<SneakerDataStruc>>{
         return GlobalScope.async(Dispatchers.IO) {
+            val threeDTask = async { getDocument("threeD") }
             val commonTask = async { getDocument("common") }
             val rareTask = async { getDocument("rare") }
             val epicTask = async { getDocument("epic") }
             val legendaryTask = async { getDocument("legendary") }
 
+            threeDList = threeDTask.await()
             commonList = commonTask.await()
             rareList = rareTask.await()
             epicList = epicTask.await()
             legendaryList = legendaryTask.await()
 
             // Continue with the next part of your code here
-            createSneakerList(commonList,37)
+            createSneakerList(threeDList,2)
+            createSneakerList(commonList,35)
             createSneakerList(rareList,8)
             createSneakerList(epicList,4)
             createSneakerList(legendaryList,1)

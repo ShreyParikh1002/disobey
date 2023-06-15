@@ -59,15 +59,6 @@ class LeaderboardFragment : Fragment() {
 
         fsrecyclerview=LeaderboardView.findViewById<RecyclerView>(R.id.leaderboardsRecycler)
         fsrecyclerview.layoutManager = LinearLayoutManager(context)
-        val user = FirebaseAuth.getInstance().currentUser?.displayName
-        pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        disobeySteps= pref.getInt("disobeySteps",0)
-        LeaderboardView.findViewById<TextView>(R.id.name).text= user
-        LeaderboardView.findViewById<TextView>(R.id.coin).text= (disobeySteps/100).toString()
-        LeaderboardView.findViewById<TextView?>(R.id.steps).text=disobeySteps.toString()
-//        step.text= disobeySteps.toString()
-//        coin.text= (disobeySteps/100).toString()
-//        name.text= user
 
         val db = FirebaseFirestore.getInstance()
         var leaderBoardsList=db.collection("leaderboards").orderBy("disobeySteps", Query.Direction.DESCENDING)
