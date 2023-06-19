@@ -171,15 +171,17 @@ class MainFragment : Fragment(), SensorEventListener {
         v=inflater.inflate(R.layout.fragment_main, container, false)
         pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         backpackSneakerList = ArrayList()
+        sneakerList = ArrayList()
         stepsTaken = v.findViewById(R.id.stepCount)
         coinsEarned = v.findViewById(R.id.coinCount)
 //        cameraButton=v.findViewById(R.id.cameraButton)
 //        avatarButton=v.findViewById(R.id.avatar)
 
+
 //--------------------------------------------------------------------------------------------------
 //      base infra initialization for stash click -> backpack updates
         val user = FirebaseAuth.getInstance().currentUser
-        println(user)
+//        println(user)
 //        if(pref.contains("unwrittenStashCount")){
 //            unwrittenStashCount = pref.getInt("unwrittenStashCount",-1)
             val sneakerMapJson = pref.getString("sneakerCountMap", null)
@@ -193,17 +195,39 @@ class MainFragment : Fragment(), SensorEventListener {
             val gson = Gson()
             if(sneakerMapJson!=null){
                 sneakerCountMap = gson.fromJson(sneakerMapJson, object : com.google.gson.reflect.TypeToken<HashMap<String, Int>>() {}.type)
-                println(sneakerCountMap)
+//                println(sneakerCountMap)
             }
             else{
-                println("no sneaker map yet")
+//                println("no sneaker map yet")
             }
             if(backpackSneakerListJson!=null){
                 backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
-                println(backpackSneakerList)
+//                println(backpackSneakerList)
             }
             else{
-                println("no sneakers list yet")
+//                println("no sneakers list yet")
+            }
+
+            val sneakerListJson = pref.getString("sneakerList", null)
+            if(sneakerListJson!=null){
+                sneakerList = gson.fromJson(sneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
+//                println(sneakerList)
+            }
+            else{
+                val msneaker=SneakerData()
+//        sneakerList=msneaker.firestoreRetrieve()
+                GlobalScope.launch(Dispatchers.Main) {
+                    val sneakerListDeferred = msneaker.firestoreRetrieve()
+                    sneakerList = sneakerListDeferred.await()
+                    val sneakerListJson = gson.toJson(sneakerList)
+                    val editor = pref.edit()
+                    editor.putString("sneakerList", sneakerListJson)
+                    editor.apply()
+//            for (item in sneakerList) {
+//                println(item)
+//            }
+                }
+//                println("no sneakers list yet")
             }
 //        }
 //        else{
@@ -257,6 +281,19 @@ class MainFragment : Fragment(), SensorEventListener {
 //--------------------------------------------------------------------------------------------------
         scan=v.findViewById(R.id.scan)
         scan.setOnClickListener {
+            val msneaker=SneakerData()
+//        sneakerList=msneaker.firestoreRetrieve()
+            GlobalScope.launch(Dispatchers.Main) {
+                val sneakerListDeferred = msneaker.firestoreRetrieve()
+                sneakerList = sneakerListDeferred.await()
+                val sneakerListJson = gson.toJson(sneakerList)
+                val editor = pref.edit()
+                editor.putString("sneakerList", sneakerListJson)
+                editor.apply()
+//            for (item in sneakerList) {
+//                println(item)
+//            }
+            }
             val currentDate = LocalDate.now().toString()
             val storedDate = pref.getString("storedDate", null)
 
@@ -307,6 +344,26 @@ class MainFragment : Fragment(), SensorEventListener {
 //        if(disobeySteps>100){
 //            tryOn.isEnabled=true
 //        }
+        val currentDate = LocalDate.now().toString()
+        val leaderboardUpdateDate = pref.getString("leaderboardUpdateDate", null)
+        val editor = pref.edit()
+        if(currentDate!=leaderboardUpdateDate){
+            val id = db.collection("leaderboards").document("hyderabad")
+            val data= hashMapOf(user!!.uid to LeaderboardsUserData(user!!.displayName,disobeyCoins.toInt()))
+            id.set(data,SetOptions.merge())
+            editor.putString("leaderboardUpdateDate", currentDate)
+            editor.putInt("dailySteps",0)
+            editor.putFloat("dailyCoins",0F)
+            editor.apply()
+
+            disobeySteps= pref.getInt("disobeySteps",0)
+            dailySteps= pref.getInt("dailySteps",0)
+            disobeyCoins= pref.getFloat("disobeyCoins", 0F)
+            dailyCoins= pref.getFloat("dailyCoins",0F)
+            stepsTaken.text = ("${dailySteps}")
+            coinsEarned.text = ("${dailyCoins.toInt()}")
+            Toast.makeText(context, "Leaderboards updated and daily steps and coins will reset to 0", Toast.LENGTH_SHORT).show()
+        }
         stepsTaken.text = ("${dailySteps}")
         coinsEarned.text = ("${dailyCoins.toInt()}")
 
@@ -316,7 +373,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 val gson = Gson()
                 val type = object : TypeToken<MutableList<Coordinate>>() {}.type
                 coordinateList = gson.fromJson(coordinateListString, type)
-                println(coordinateList)
+//                println(coordinateList)
                 createMarkerList()
                 // Use the retrieved coordinateList as needed
             } catch (e: JsonSyntaxException) {
@@ -578,15 +635,7 @@ class MainFragment : Fragment(), SensorEventListener {
             markerList.add(pointAnnotationOptions);
         }
 
-        val msneaker=SneakerData()
-//        sneakerList=msneaker.firestoreRetrieve()
-        GlobalScope.launch(Dispatchers.Main) {
-            val sneakerListDeferred = msneaker.firestoreRetrieve()
-            sneakerList = sneakerListDeferred.await()
-//            for (item in sneakerList) {
-//                println(item)
-//            }
-        }
+
 
 //        TODO: golden box part
 //        bitmpa = convertDrawableToBitmap(AppCompatResources.getDrawable(requireContext(), R.drawable.ar_marker))
@@ -673,7 +722,7 @@ class MainFragment : Fragment(), SensorEventListener {
                 val editor = pref.edit()
                 editor.putString("backpackSneakerList", backpackSneakerListJson)
                 editor.apply()
-                println(backpackSneakerList)
+//                println(backpackSneakerList)
             }
             val sneakerMapJson = gson.toJson(sneakerCountMap)
             val editor = pref.edit()
@@ -791,7 +840,7 @@ class MainFragment : Fragment(), SensorEventListener {
     override fun onResume() {
         super.onResume()
         running = true
-        println("runnong true")
+//        println("runnong true")
         // TYPE_STEP_COUNTER:  A constant describing a step counter sensor
         // Returns the number of steps taken by the user since the last reboot while activated
         // This sensor requires permission android.permission.ACTIVITY_RECOGNITION.

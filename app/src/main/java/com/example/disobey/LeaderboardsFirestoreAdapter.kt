@@ -17,7 +17,7 @@ public class LeaderboardsFirestoreAdapter(private val fslist: ArrayList<Leaderbo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.rank.text= "Rank "+(position+1).toString()
         val userdata = fslist[position]
-        holder.disobeySteps.text= "Steps: " + userdata.disobeySteps.toString()
+        holder.disobeySteps.text= "Coins : " + userdata.disobeySteps.toString()
         holder.name.text=userdata.name
         if(position==0){
             holder.crown.setImageResource(R.drawable.crown_one)
@@ -27,6 +27,9 @@ public class LeaderboardsFirestoreAdapter(private val fslist: ArrayList<Leaderbo
         }
         else if(position==2){
             holder.crown.setImageResource(R.drawable.crown_three)
+        }
+        else if(position>2){
+            holder.crown.setImageResource(R.drawable.baseline_lens_24)
         }
     }
 

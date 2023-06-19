@@ -77,7 +77,7 @@ class Avatar : AppCompatActivity() {
         val genderCstLayout = findViewById<LinearLayout>(R.id.GenderCstLayout)
         val topCstLayout = findViewById<LinearLayout>(R.id.TopCstLayout)
         val bottomCstLayout = findViewById<LinearLayout>(R.id.BottomCstLayout)
-        val sneakerScrollView = findViewById<HorizontalScrollView>(R.id.sneakerScrollView)
+        val sneakerScrollView = findViewById<LinearLayout>(R.id.SneakerCstLayout)
 
         val maleScrollView = findViewById<HorizontalScrollView>(R.id.MaleScrollView)
         val femaleScrollView = findViewById<HorizontalScrollView>(R.id.FemaleScrollView)
@@ -128,6 +128,8 @@ class Avatar : AppCompatActivity() {
 
         val snb1 = findViewById<CardView>(R.id.card_view_Sneaker1)
         val snb2 = findViewById<CardView>(R.id.card_view_Sneaker2)
+        val snb3 = findViewById<CardView>(R.id.card_view_Sneaker3)
+        val snb4 = findViewById<CardView>(R.id.card_view_Sneaker4)
 
         val femaleButton = findViewById<CardView>(R.id.card_view_FemaleButton)
         val femaleButton1 = findViewById<CardView>(R.id.card_view_FemaleButton1)
@@ -372,8 +374,21 @@ class Avatar : AppCompatActivity() {
             // your code to perform when the user clicks on the button
             SneakerImage.setImageResource( R.drawable.high_top_sneakerss)
         }
-    }
 
+        snb3.setOnClickListener {
+            // your code to perform when the user clicks on the button
+            SneakerImage.setImageResource( R.drawable.purple_ghost)
+        }
+
+
+        snb4.setOnClickListener {
+            // your code to perform when the user clicks on the button
+            SneakerImage.setImageResource( R.drawable.chroma_wave)
+        }
+
+
+
+    }
 
     private fun getBitmapFromUiView(view: View?): Bitmap {
         //Define a bitmap with the same size as the view

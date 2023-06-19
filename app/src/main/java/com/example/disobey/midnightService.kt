@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import java.time.LocalDate
 
 class midnightService : Service() {
 
@@ -57,7 +58,7 @@ class midnightService : Service() {
                 .build()
             startForeground(2, notification)
         }
-
+        val currentDate = LocalDate.now().toString()
         val id = db.collection("leaderboards").document("hyderabad")
         val data= hashMapOf(user!!.uid to LeaderboardsUserData(user!!.displayName,disobeyCoins.toInt()))
         id.set(data,SetOptions.merge())
@@ -83,6 +84,7 @@ class midnightService : Service() {
 
         myEdit.putInt("dailySteps",0)
         myEdit.putFloat("dailyCoins",0F)
+        myEdit.putString("leaderboardUpdateDate", currentDate)
         myEdit.apply()
 
         dailySteps= pref.getInt("dailySteps",0)

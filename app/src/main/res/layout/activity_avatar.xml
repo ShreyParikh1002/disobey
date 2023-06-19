@@ -44,6 +44,9 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
@@ -142,6 +145,9 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -160,6 +166,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -180,6 +189,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -200,6 +212,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -226,9 +241,10 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/BottomCardViewSection"
         android:backgroundTint="@color/white"
         android:background="@color/white"
+
+        android:id="@+id/BottomCardViewSection"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"
@@ -264,20 +280,20 @@
 
 
                     <Button
+                        android:textColor="@color/white"
                         android:id="@+id/MaleSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:textColor="@color/white"
                         android:backgroundTint="@android:color/black"
                         android:text="Male" />
 
                     <Button
+                        android:textColor="@color/white"
                         android:id="@+id/FemaleSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
@@ -294,7 +310,7 @@
                         android:id="@+id/FemaleScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -304,6 +320,9 @@
                             android:weightSum="7">
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -341,6 +360,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -378,6 +400,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -415,6 +440,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -452,6 +480,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -489,6 +520,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -526,6 +560,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_FemaleButton6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -570,7 +607,7 @@
                         android:id="@+id/MaleScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -581,6 +618,9 @@
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -615,6 +655,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -649,6 +692,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -683,6 +729,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -717,6 +766,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -751,6 +803,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -785,6 +840,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_MaleButton6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -848,24 +906,22 @@
 
 
                     <Button
+                        android:textColor="@color/white"
                         android:id="@+id/HoodiesSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
-
-                        android:textColor="@color/white"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
                         android:text="Hoodies" />
 
                     <Button
+                        android:textColor="@color/white"
                         android:id="@+id/TeesSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
-
-                        android:textColor="@color/white"
                         android:backgroundTint="@android:color/black"
                         android:text="Tee Shirts" />
                 </LinearLayout>
@@ -881,53 +937,50 @@
                         android:id="@+id/HoodieScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:paddingStart="15dp"
-                            android:paddingLeft="5dp"
-                            android:paddingTop="20dp"
-                            android:paddingEnd="25dp"
-                            android:paddingRight="5dp"
-                            android:paddingBottom="20dp"
+                            android:padding="10dp"
                             android:visibility="visible"
                             android:weightSum="5">
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Hoodie1"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
 
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false">
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="10dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="20dp"
-                                    android:paddingEnd="20dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingRight="50dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_margin="10dp"
-                                        android:layout_weight="1.5"
-                                        android:text="'WHITE'"
+                                        android:layout_weight="1"
+                                        android:text="WHITE"
                                         android:textColor="@color/black"
-                                        android:textSize="20sp"
                                         android:textStyle="bold"
                                         app:autoSizeTextType="none"></TextView>
 
@@ -936,7 +989,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="8.5"
+                                        android:layout_weight="9"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitCenter"
@@ -947,35 +1000,37 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Hoodie3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false">
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="10dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="20dp"
-                                    android:paddingEnd="20dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingRight="50dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_margin="10dp"
-                                        android:layout_weight="1.5"
-                                        android:text="'BLACK'"
+                                        android:layout_weight="1"
+                                        android:text="BLACK"
                                         android:textColor="@color/black"
-                                        android:textSize="20sp"
                                         android:textStyle="bold"></TextView>
 
                                     <ImageView
@@ -983,7 +1038,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="8.5"
+                                        android:layout_weight="9"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitCenter"
@@ -993,35 +1048,37 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Hoodie4"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false">
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="10dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="20dp"
-                                    android:paddingEnd="20dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingRight="50dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_margin="10dp"
-                                        android:layout_weight="1.5"
-                                        android:text="'BEIGE'"
+                                        android:layout_weight="1"
+                                        android:text="BEIGE"
                                         android:textColor="@color/black"
-                                        android:textSize="20sp"
                                         android:textStyle="bold"></TextView>
 
                                     <ImageView
@@ -1029,7 +1086,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="8.5"
+                                        android:layout_weight="9"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitCenter"
@@ -1039,35 +1096,37 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Hoodie5"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false">
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="10dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="20dp"
-                                    android:paddingEnd="20dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingRight="50dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_margin="10dp"
-                                        android:layout_weight="1.5"
-                                        android:text="'ORANGE'"
+                                        android:layout_weight="1"
+                                        android:text="ORANGE"
                                         android:textColor="@color/black"
-                                        android:textSize="20sp"
                                         android:textStyle="bold"></TextView>
 
                                     <ImageView
@@ -1075,7 +1134,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="8.5"
+                                        android:layout_weight="9"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitCenter"
@@ -1085,35 +1144,38 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Hoodie6"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false">
+                                app:cardUseCompatPadding="false"
+                                app:contentPadding="10dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="20dp"
-                                    android:paddingEnd="20dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingRight="50dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_margin="10dp"
-                                        android:layout_weight="2"
-                                        android:text="'THUMBHOLE'"
+                                        android:layout_weight="1"
+                                        android:text="THUMBHOLE"
                                         android:textColor="@color/black"
-                                        android:textSize="20sp"
                                         android:textStyle="bold"></TextView>
 
                                     <ImageView
@@ -1121,7 +1183,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="8.5"
+                                        android:layout_weight="9"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitCenter"
@@ -1140,55 +1202,59 @@
                         android:id="@+id/TeeShirtScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:padding="15dp"
+                            android:padding="10dp"
                             android:paddingRight="5dp"
                             android:weightSum="7">
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee1"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
 
-                                        android:text="'BLACK'"
+                                        android:text="BLACK"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/tsb"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1198,42 +1264,46 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee2"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:autoText="true"
-                                        android:text="'PURPLE'"
+                                        android:layout_weight="2"
+                                        android:autoText="false"
+                                        android:text="PURPLE"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/tsb5"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1244,42 +1314,46 @@
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:autoText="true"
                                         android:text="'WHITE'"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/tsb6"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1289,42 +1363,46 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee4"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:autoText="true"
-                                        android:text="'DUELIST'"
+                                        android:text="DUELIST"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/dualist"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1334,42 +1412,46 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee5"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:autoText="true"
-                                        android:text="'CONTROLLER'"
+                                        android:text="CONTROLLER"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/controller"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1379,42 +1461,46 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee6"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:autoText="true"
-                                        android:text="'INITIATOR'"
+                                        android:text="INITIATOR"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/initiator"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="fitXY"
@@ -1424,42 +1510,46 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Top_Tee7"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
-                                app:cardUseCompatPadding="false"
-                                app:contentPadding="10dp">
+                                app:cardUseCompatPadding="false">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="10dp"
+                                    android:paddingLeft="50dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="50dp"
+                                    android:paddingBottom="20dp"
                                     android:weightSum="10">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:autoText="true"
-                                        android:text="'SENTINEL'"
+                                        android:text="SENTINEL"
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        app:autoSizeTextType="uniform"></TextView>
+                                        android:textStyle="bold"></TextView>
 
                                     <ImageView
                                         android:id="@+id/sentinel"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center"
-                                        android:layout_weight="9"
+                                        android:layout_weight="8"
                                         android:background="#00FFFFFF"
                                         android:contentDescription="@string/button_description"
                                         android:scaleType="centerCrop"
@@ -1497,10 +1587,9 @@
 
 
                     <Button
+                        android:textColor="@color/white"
                         android:id="@+id/ShortsSubSecButton"
                         android:layout_width="wrap_content"
-
-                        android:textColor="@color/white"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
@@ -1508,9 +1597,8 @@
                         android:text="Shorts" />
 
                     <Button
-                        android:id="@+id/PantsSubSecButton"
-
                         android:textColor="@color/white"
+                        android:id="@+id/PantsSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
@@ -1531,97 +1619,113 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:weightSum="2">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/card_view_Bottom2"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:paddingStart="50dp"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="20dp"
-                            app:cardUseCompatPadding="false">
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
+                                android:id="@+id/card_view_Bottom2"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:orientation="vertical"
-                                android:padding="20dp"
-                                android:weightSum="10">
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="2"
-                                    android:text="'OLIVE'"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"></TextView>
-
-                                <ImageView
-                                    android:id="@+id/pab2"
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="8"
-                                    android:background="#00FFFFFF"
-                                    android:contentDescription="@string/button_description"
-                                    android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/olive_green_half_pants_buttonimage" />
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="30dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="30dp"
+                                    android:weightSum="10">
 
-                            </LinearLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="'OLIVE'"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
+
+                                    <ImageView
+                                        android:id="@+id/pab2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="8"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/button_description"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/olive_green_half_pants_buttonimage" />
+
+                                </LinearLayout>
 
 
-                        </androidx.cardview.widget.CardView>
+                            </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/card_view_Bottom1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:paddingStart="50dp"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="20dp"
-                            app:cardUseCompatPadding="false">
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                                android:id="@+id/card_view_Bottom1"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:orientation="vertical"
-                                android:padding="20dp"
-                                android:weightSum="10">
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="2"
-                                    android:text="'MARON'"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"></TextView>
-
-
-                                <ImageView
-                                    android:id="@+id/pab1"
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="8"
-                                    android:background="#00FFFFFF"
-                                    android:contentDescription="@string/app_name"
-                                    android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/maroon_half_pant_ib" />
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="30dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="30dp"
+                                    android:weightSum="10">
 
-                            </LinearLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="'MARON'"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
 
 
-                        </androidx.cardview.widget.CardView>
+                                    <ImageView
+                                        android:id="@+id/pab1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="8"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/app_name"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/maroon_half_pant_ib" />
+
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <HorizontalScrollView
@@ -1636,7 +1740,7 @@
                         android:id="@+id/PantsScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <LinearLayout
 
@@ -1644,18 +1748,20 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             android:padding="10dp"
-                            android:weightSum="3">
+                            android:weightSum="4">
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Bottom3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
                                 app:cardUseCompatPadding="false">
@@ -1693,14 +1799,16 @@
 
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Bottom4"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
                                 app:cardUseCompatPadding="false">
@@ -1737,14 +1845,16 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
                                 android:id="@+id/card_view_Bottom5"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 android:clickable="true"
-                                android:paddingStart="50dp"
                                 app:cardCornerRadius="25dp"
                                 app:cardElevation="20dp"
                                 app:cardUseCompatPadding="false">
@@ -1792,121 +1902,268 @@
             </LinearLayout>
 
 
-            <HorizontalScrollView
-                android:id="@+id/sneakerScrollView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/SneakerCstLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:weightSum="10">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="2">
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:visibility="visible">
 
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_view_Sneaker1"
+                    <Button
+                        android:textColor="@color/white"
+                        android:id="@+id/HighTopSneakerSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="15dp"
+                        android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:paddingStart="50dp"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="20dp"
-                        app:cardUseCompatPadding="false">
+                        android:backgroundTint="@android:color/black"
+                        android:text="Sneakers"
+                        android:visibility="visible" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="DISOBEY"
-                                android:textColor="@color/cardview_shadow_start_color"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="LOW TOP 'WHITE'"
-                                android:textColor="@color/black"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <ImageView
-                                android:id="@+id/snb1"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"
-                                android:background="#00FFFFFF"
-                                android:contentDescription="@string/app_name"
-                                android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/low_top_white_sneakers" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_view_Sneaker2"
+                    <Button
+                        android:textColor="@color/white"
+                        android:id="@+id/LowTopSneakerSubSecButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="15dp"
+                        android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:paddingStart="50dp"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="20dp"
-                        app:cardUseCompatPadding="false">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="DISOBEY"
-                                android:textColor="@color/cardview_shadow_start_color"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="HIGH TOP 'WHITE'"
-                                android:textColor="@color/black"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <ImageView
-                                android:id="@+id/snb2"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"
-
-                                android:background="#00FFFFFF"
-                                android:contentDescription="@string/app_name"
-                                android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/high_top_white_sneakers_ib" />
+                        android:backgroundTint="@android:color/black"
+                        android:text="Rare Sneakers"
+                        android:visibility="gone" />
 
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+
+                    <HorizontalScrollView
+                        android:id="@+id/HightTopSneakerScrollView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            android:weightSum="5">
+
+
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
+                                android:id="@+id/card_view_Sneaker1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_margin="10dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="40dp"
+                                    android:weightSum="10">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="LOW TOP"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
+
+                                    <ImageView
+                                        android:id="@+id/snb1"
+                                        android:layout_width="200dp"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="8.5"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/app_name"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/low_top_white_sneakers" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
+                                android:id="@+id/card_view_Sneaker2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_margin="10dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="40dp"
+                                    android:weightSum="10">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="HIGH TOP"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
+
+                                    <ImageView
+                                        android:id="@+id/snb2"
+                                        android:layout_width="200dp"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="8.5"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/app_name"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/high_top_white_sneakers_ib" />
+
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
+                                android:id="@+id/card_view_Sneaker3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_margin="10dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="40dp"
+                                    android:weightSum="10">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="PURPLE GHOST"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
+
+                                    <ImageView
+                                        android:id="@+id/snb3"
+                                        android:layout_width="200dp"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="8.5"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/app_name"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/purple_ghost__1_" />
+
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:backgroundTint="@color/white"
+                                android:background="@color/white"
+
+                                android:id="@+id/card_view_Sneaker4"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_margin="10dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:cardUseCompatPadding="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="40dp"
+                                    android:weightSum="10">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:text="Chroma Wave"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"></TextView>
+
+                                    <ImageView
+                                        android:id="@+id/snb4"
+                                        android:layout_width="200dp"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="8.5"
+                                        android:background="#00FFFFFF"
+                                        android:contentDescription="@string/app_name"
+                                        android:scaleType="fitCenter"
+                                        app:srcCompat="@drawable/chroma_wave_icon" />
+
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

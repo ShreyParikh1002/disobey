@@ -80,17 +80,17 @@ class Backpack : Fragment() {
         val gson = Gson()
         if(sneakerMapJson!=null){
             sneakerCountMap = gson.fromJson(sneakerMapJson, object : TypeToken<HashMap<String, Int>>() {}.type)
-            println(sneakerCountMap)
+//            println(sneakerCountMap)
         }
         else{
-            println("no sneaker map yet")
+//            println("no sneaker map yet")
         }
         if(backpackSneakerListJson!=null){
             backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
-            println(backpackSneakerList)
+//            println(backpackSneakerList)
         }
         else{
-            println("no sneakers list yet")
+//            println("no sneakers list yet")
         }
         fsrecyclerview=view.findViewById<RecyclerView>(R.id.backpackGrid)
         fsrecyclerview.layoutManager = GridLayoutManager(context,2)
