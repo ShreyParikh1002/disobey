@@ -160,6 +160,7 @@ class MainFragment : Fragment(), SensorEventListener {
 
     lateinit var sneakerList :ArrayList<SneakerDataStruc>
     lateinit var backpackSneakerList :ArrayList<SneakerDataStruc>
+    lateinit var threeDSneakerList :ArrayList<SneakerDataStruc>
     var sneakerCountMap = hashMapOf<String, Int>()
     var one=R.drawable.loneshark
     var two=R.drawable.darksmoke
@@ -171,6 +172,7 @@ class MainFragment : Fragment(), SensorEventListener {
         v=inflater.inflate(R.layout.fragment_main, container, false)
         pref = requireActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         backpackSneakerList = ArrayList()
+        threeDSneakerList = ArrayList()
         sneakerList = ArrayList()
         stepsTaken = v.findViewById(R.id.stepCount)
         coinsEarned = v.findViewById(R.id.coinCount)
@@ -186,6 +188,7 @@ class MainFragment : Fragment(), SensorEventListener {
 //            unwrittenStashCount = pref.getInt("unwrittenStashCount",-1)
             val sneakerMapJson = pref.getString("sneakerCountMap", null)
             val backpackSneakerListJson = pref.getString("backpackSneakerList", null)
+            val threeDSneakerListJson = pref.getString("threeDSneakerList", null)
             val timeoutString = pref.getString("timeOut", null)
             if(timeoutString!=null){
                 timeoutSet = timeoutString?.split(",")?.mapNotNull { it.toIntOrNull() }?.toMutableSet()!!
@@ -203,6 +206,13 @@ class MainFragment : Fragment(), SensorEventListener {
             if(backpackSneakerListJson!=null){
                 backpackSneakerList = gson.fromJson(backpackSneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
 //                println(backpackSneakerList)
+            }
+            else{
+//                println("no sneakers list yet")
+            }
+            if(threeDSneakerListJson!=null){
+                threeDSneakerList = gson.fromJson(threeDSneakerListJson, object : com.google.gson.reflect.TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
+//
             }
             else{
 //                println("no sneakers list yet")
@@ -716,13 +726,22 @@ class MainFragment : Fragment(), SensorEventListener {
                 .into(imageWindow)
             dialog.findViewById<TextView>(R.id.t1).text = markerSneaker
             sneakerCountMap[markerSneaker] = (sneakerCountMap[markerSneaker] as? Int ?: 0) + 1
-            if(sneakerCountMap[markerSneaker]==1 && number!=0 && number!=1){
-                backpackSneakerList.add(sneakerList[number])
-                val backpackSneakerListJson = gson.toJson(backpackSneakerList)
-                val editor = pref.edit()
-                editor.putString("backpackSneakerList", backpackSneakerListJson)
-                editor.apply()
-//                println(backpackSneakerList)
+            if(sneakerCountMap[markerSneaker]==1){
+//                if(number!=0 && number!=1){
+                    backpackSneakerList.add(sneakerList[number])
+                    val backpackSneakerListJson = gson.toJson(backpackSneakerList)
+                    val editor = pref.edit()
+                    editor.putString("backpackSneakerList", backpackSneakerListJson)
+                    editor.apply()
+    //                println(backpackSneakerList)
+//                }
+//                else{
+//                    threeDSneakerList.add(sneakerList[number])
+//                    val threeDSneakerListJson = gson.toJson(threeDSneakerList)
+//                    val editor = pref.edit()
+//                    editor.putString("threeDSneakerList", threeDSneakerListJson)
+//                    editor.apply()
+//                }
             }
             val sneakerMapJson = gson.toJson(sneakerCountMap)
             val editor = pref.edit()

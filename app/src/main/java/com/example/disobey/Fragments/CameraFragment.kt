@@ -14,6 +14,8 @@ import com.example.disobey.R
 import com.example.disobey.SneakerDataStruc
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,14 +49,32 @@ class CameraFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         threeDSneakerList=ArrayList()
 
+        val sneakerMapJson = pref.getString("sneakerCountMap", null)
+        val threeDSneakerListJson = pref.getString("threeDSneakerList", null)
+        val gson = Gson()
+        if(sneakerMapJson!=null){
+            sneakerCountMap = gson.fromJson(sneakerMapJson, object : TypeToken<HashMap<String, Int>>() {}.type)
+//            println(sneakerCountMap)
+        }
+        else{
+//            println("no sneaker map yet")
+        }
+        if(threeDSneakerListJson!=null){
+            threeDSneakerList = gson.fromJson(threeDSneakerListJson, object : TypeToken<ArrayList<SneakerDataStruc>>() {}.type)
+//            println(backpackSneakerList)
+        }
+        else{
+//            println("no sneakers list yet")
+        }
+
         fsrecyclerview=view.findViewById<RecyclerView>(R.id.ThreeDGrid)
         fsrecyclerview.layoutManager = GridLayoutManager(context,2)
 
-        threeDSneakerList.add(SneakerDataStruc("Coloured Sneaker","182d9586-9a63-4ae4-8b73-ce8d10052422","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/coloredSneaker.png?alt=media&token=c88ca2f4-ba0f-4450-9096-ed2db6481f22",10))
-        threeDSneakerList.add(SneakerDataStruc("90's Nostalgia","d36f63db-23f1-457b-8059-3914de823243","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/90sNostalgia.png?alt=media&token=0e2dfaf3-2444-41de-98cd-48665aafc0aa",10))
-        threeDSneakerList.add(SneakerDataStruc("Black Gold","0295c23b-aad6-40c4-8b89-689e45a97e61","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/goldBlackSneaker.png?alt=media&token=767b9a25-72d8-4045-9586-242d63b3144c",10))
-        threeDSneakerList.add(SneakerDataStruc("Hyper Sneaker","32960919-ddaf-46ab-b4ba-724097569166","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/hyperSneaker.png?alt=media&token=c65d7f10-6a4a-4bed-baeb-2761feef136e",10))
-        threeDSneakerList.add(SneakerDataStruc("Cyberpunk Sneaker","c75cfb4e-c15f-4570-a8df-b8e229c2e6d7","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/cyberpunk.png?alt=media&token=63bec4a0-1b4f-44d8-8a55-9f797ff8a395",10))
+//        threeDSneakerList.add(SneakerDataStruc("Coloured Sneaker","182d9586-9a63-4ae4-8b73-ce8d10052422","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/coloredSneaker.png?alt=media&token=c88ca2f4-ba0f-4450-9096-ed2db6481f22",10))
+//        threeDSneakerList.add(SneakerDataStruc("90's Nostalgia","d36f63db-23f1-457b-8059-3914de823243","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/90sNostalgia.png?alt=media&token=0e2dfaf3-2444-41de-98cd-48665aafc0aa",10))
+//        threeDSneakerList.add(SneakerDataStruc("Black Gold","0295c23b-aad6-40c4-8b89-689e45a97e61","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/goldBlackSneaker.png?alt=media&token=767b9a25-72d8-4045-9586-242d63b3144c",10))
+//        threeDSneakerList.add(SneakerDataStruc("Hyper Sneaker","32960919-ddaf-46ab-b4ba-724097569166","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/hyperSneaker.png?alt=media&token=c65d7f10-6a4a-4bed-baeb-2761feef136e",10))
+//        threeDSneakerList.add(SneakerDataStruc("Cyberpunk Sneaker","c75cfb4e-c15f-4570-a8df-b8e229c2e6d7","https://firebasestorage.googleapis.com/v0/b/disobey-790c8.appspot.com/o/cyberpunk.png?alt=media&token=63bec4a0-1b4f-44d8-8a55-9f797ff8a395",10))
 
         var fsadapter= BackpackAdapter(threeDSneakerList,sneakerCountMap,2)
         fsrecyclerview.adapter=fsadapter

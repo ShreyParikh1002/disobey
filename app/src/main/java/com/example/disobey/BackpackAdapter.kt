@@ -35,21 +35,32 @@ public class BackpackAdapter(private val fslist: ArrayList<SneakerDataStruc>, pr
             if(nameList.size>1){
                 holder.name2.text=nameList[1]
             }
-            holder.type.text=fslist[position].type
+            if(fslist[position].type.length>10){
+                holder.type.text="3D Try-On"
+                holder.tryonButton.visibility=View.VISIBLE
+                holder.tryonButton.setOnClickListener{
+
+//                val kitsession=Session.newBuilder(it.context).build()
+//                kitsession.processor.waitFor(requestUpdate = LegalProcessor.Input.RequestUpdate.ALWAYS) { result ->
+//                    println("Got legal processor result: $result")
+//                }
+                    val intent = Intent(holder.itemView.context, snapCam::class.java)
+                    intent.putExtra("Type","1")
+                    intent.putExtra("lens",fslist[position].type)
+                    holder.itemView.context.startActivity(intent)
+                }
+            }
+            else{
+                holder.type.text=fslist[position].type
+                holder.tryonButton.visibility=View.GONE
+            }
             val picasso = Picasso.get()
             picasso.load(fslist[position].image)
                 .into(holder.image)
             holder.coin.text="x "+fsmap[fslist[position].name]
-            holder.tryonButton.setOnClickListener{
-                val intent = Intent(holder.itemView.context, snapCam::class.java)
-                intent.putExtra("Type","1")
-                holder.itemView.context.startActivity(intent)
-            }
-
-
         }
         if(fstype==2){
-            holder.coin.text="x 1"
+            holder.coin.text="x "+fsmap[fslist[position].name]
             val str=fslist[position].name
             val nameList=str.split(" ")
             holder.name1.text=nameList[0]
